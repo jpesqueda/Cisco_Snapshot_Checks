@@ -1,4 +1,4 @@
-# Cisco Snapshot Checks — Versión 1.1.0 — Interactive Accordion
+# Cisco Snapshot Checks — Versión 1.2.0 — Accordion + External TextFSM
 
 Comparador estructurado de capturas Cisco IOS-XE, basado en snapshots numerados. **Nunca cambia configuraciones de red**; SSH se utiliza únicamente para comandos `show`. Compatible con Windows y Python 3.10+.
 
@@ -155,3 +155,72 @@ siguen enumerados en Command Coverage y mantienen resultado global INCOMPLETE.
 la TUI no pudo ejecutarse aquí porque el entorno no dispone de Textual y no permite
 instalar paquetes. La API usada se basa en la documentación oficial y debe verificarse
 inicialmente en Windows antes de depender de ella durante un mantenimiento real.
+
+
+## 9. Integrar la carpeta `ntc_templates_cisco_ios` (1.2.0)
+
+El motor ahora admite un directorio completo de templates `.textfsm`, **sin exigir que
+crees una entrada YAML por cada archivo**. Las plantillas propias se ejecutan como
+fallback cuando NTC Templates instalado no logra parsear la salida.
+
+**Opción A — autodetección:** copia tu carpeta `ntc_templates_cisco_ios/` a la misma
+ubicación que `SnapshotChecks.py`:
+
+```text
+Cisco_Snapshot_Checks/
+├── SnapshotChecks.py
+├── ntc_templates_cisco_ios/
+│   ├── cisco_ios_show_clock.textfsm
+│   ├── cisco_ios_show_ip_arp.textfsm
+│   └── ...
+├── snapshotchecks/
+└── ...
+```
+
+**Opción B — carpeta externa en Windows:** evita copiar los templates.
+
+```powershell
+python SnapshotChecks.py import -f examples/C9300-ACCESS-01_PRE_SIMULATED.txt --snapshot 001 -o Upgrade_Test --templates-dir "C:\Automation\Cisco_Command_Parser\ntc_templates_cisco_ios"
+python SnapshotChecks.py import -f examples/C9300-ACCESS-01_POST_SIMULATED.txt --snapshot 002 -o Upgrade_Test --templates-dir "C:\Automation\Cisco_Command_Parser\ntc_templates_cisco_ios"
+python SnapshotChecks.py compare --from 001 --to 002 -o Upgrade_Test --expected-version 17.5.6
+```
+
+En `collect` puedes pasar también `--templates-dir`; las sesiones SSH y los
+archivos TXT no cambian. **Para snapshots ya importados, vuelve a ejecutar
+`import` de sus TXT originales** y confirma la sobrescritura, porque `compare`
+utiliza el JSON guardado, no vuelve a parsear automáticamente.
+
+**Orden de parsing:** NTC Templates empaquetado → carpeta externa →
+`custom_templates/` del proyecto → parser propio para comandos con normalizador.
+La carpeta externa puede tener un `index` NTC estándar, un `index.yaml`
+con mapeos por plataforma y comando, o **solo nombres**
+`cisco_ios_show_....textfsm`. Solo se buscan nombres exactos y un pequeño
+conjunto de alias IOS-XE equivalentes; no se asume que `show switch` sea igual
+a `show switch detail`.
+
+**Cobertura:**
+
+- `NORMALIZED`: salida parseada y mapeada a campos comparables.
+- `PARSED_UNMAPPED`: TextFSM extrajo registros; todavía falta normalizador
+  en `snapshotchecks/parsing.py` y regla si la sección es nueva.
+- `UNSUPPORTED`: no se halló un parser que reconociera esa salida.
+- `PARSE_ERROR`: se identificó una plantilla pero hubo error o no coincidió.
+- `SKIPPED_SENSITIVE`: `show running-config` sigue fuera del JSON.
+
+Los templates de tu captura **no están incluidos en este ZIP** porque recibimos
+solo una imagen, no los archivos `.textfsm`. Al copiar tu carpeta real, la
+cobertura aumentará solo para los formatos que esos templates reconozcan.
+Tener template no significa que el campo se compare ni garantiza un PASS.
+
+Una prueba rápida:
+
+```powershell
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+python SnapshotChecks.py import -f examples/C9300-ACCESS-01_PRE_SIMULATED.txt --snapshot 001 -o Upgrade_Test --templates-dir ntc_templates_cisco_ios
+```
+
+Revisa `Upgrade_Test/Snapshots/001/JSON/C9300-ACCESS-01.json` bajo `coverage`.
+Por ejemplo, `show clock` podrá reportar `PARSED_UNMAPPED` aunque siga fuera de
+las comparaciones, mientras `show interfaces counters errors` podrá ser `NORMALIZED`
+si el template devuelve los campos esperados.

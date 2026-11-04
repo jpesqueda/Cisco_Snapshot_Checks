@@ -14,7 +14,7 @@ from pathlib import Path
 
 from snapshotchecks.collect import collect_all
 from snapshotchecks.comparison import compare_snapshots,load_rules
-from snapshotchecks.parsing import parse_capture
+from snapshotchecks.parsing import parse_capture,resolve_templates_dir
 from snapshotchecks.reports import console_tree,write_report,write_summary
 from snapshotchecks.storage import (default_root,import_existing,next_snapshot,read_snapshot,
                                     safe_name,snapshot_id)
@@ -37,6 +37,9 @@ EXAMPLES='''EXAMPLES:
     python SnapshotChecks.py import -f C9300-ACCESS-01_PRE_SIMULATED.txt --snapshot 001 -o Lab
     python SnapshotChecks.py import -f C9300-ACCESS-01_POST_SIMULATED.txt --snapshot 002 -o Lab
 
+  Import using your own NTC/TextFSM directory:
+    python SnapshotChecks.py import -f SW01_PRE.txt --snapshot 001 -o Lab --templates-dir ntc_templates_cisco_ios
+
   Compare snapshots 001 and 002 (no SSH):
     python SnapshotChecks.py compare --from 001 --to 002 -o Lab --expected-version 17.5.6 --tree
 
@@ -58,6 +61,8 @@ def _common(parser:argparse.ArgumentParser):
     parser.add_argument('-o','--output',metavar='DIR',help='Project root (default: current date)')
     parser.add_argument('--platform',default='cisco_ios',metavar='NAME',
                         help='NTC Templates platform (default: cisco_ios)')
+    parser.add_argument('--templates-dir',metavar='DIR',
+                        help='Extra TextFSM templates folder (auto: ntc_templates_cisco_ios next to script)')
     parser.add_argument('--help',action='help',help='Show help for this action')
 
 
@@ -120,6 +125,7 @@ def read_items(path:Path)->list[str]:
 
 def handle_collect(args:argparse.Namespace)->int:
     root=Path(args.output).expanduser() if args.output else default_root()
+    templates_dir=resolve_templates_dir(args.templates_dir)
     if args.host:hosts=[args.host]
     elif args.host_file:hosts=read_items(Path(args.host_file).expanduser())
     else:
@@ -151,7 +157,7 @@ def handle_collect(args:argparse.Namespace)->int:
             print('Cancelled. Existing outputs preserved.')
             return 0
     print(f'\nSnapshot       : {snap}\nDevices        : {len(hosts)}\nCommands       : {len(commands)}\nOutput         : {root}')
-    results=collect_all(hosts,commands,username,password,root,snap,args.platform,args.backup,args.workers)
+    results=collect_all(hosts,commands,username,password,root,snap,args.platform,args.backup,args.workers,templates_dir)
     ok=sum(r.success for r in results)
     print(f'\nCollection Completed\nDevices Processed : {len(results)}\nSuccessful        : {ok}\nFailed            : {len(results)-ok}')
     print(f'Results : {base / "Checks"}\nJSON    : {base / "JSON"}\nLogs    : {root / "Logs"}')
@@ -162,19 +168,22 @@ def handle_collect(args:argparse.Namespace)->int:
 def handle_import(args:argparse.Namespace)->int:
     root=Path(args.output).expanduser() if args.output else default_root()
     snap=snapshot_id(args.snapshot)
+    templates_dir=resolve_templates_dir(args.templates_dir)
     source=Path(args.file).expanduser()
     if not source.is_file():raise FileNotFoundError(source)
-    parsed=parse_capture(source,platform=args.platform,snapshot=snap)
+    parsed=parse_capture(source,platform=args.platform,snapshot=snap,templates_dir=templates_dir)
     name=safe_name(parsed['metadata']['device'])
     destination=root/'Snapshots'/snap/'Checks'/f'{name}.txt'
     if destination.exists():
         print('[WARNING] Existing file: '+str(destination))
         if not confirm('Overwrite this snapshot file?'):return 0
-    raw,jsonpath,parsed=import_existing(root,snap,source,args.platform)
+    raw,jsonpath,parsed=import_existing(root,snap,source,args.platform,templates_dir)
     statuses={}
     for x in parsed['coverage'].values():statuses[x['status']]=statuses.get(x['status'],0)+1
     print(f'Imported : {raw}\nParsed   : {jsonpath}\nDevice   : {parsed["metadata"]["device"]}')
     print('Coverage : '+', '.join(f'{k}={v}' for k,v in statuses.items()))
+    if templates_dir:print('Templates: '+str(templates_dir))
+    print('Note: PARSED_UNMAPPED means parsed to JSON but not yet compared semantically.')
     return 0
 
 

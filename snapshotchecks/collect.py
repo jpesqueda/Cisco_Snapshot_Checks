@@ -21,7 +21,7 @@ class Result:
 
 
 def capture_one(host:str,commands:list[str],username:str,password:str,
-               root:Path,snap:str,platform:str,backup:bool)->Result:
+               root:Path,snap:str,platform:str,backup:bool,templates_dir:Path|None=None)->Result:
     result=Result(host)
     conn=None
     try:
@@ -55,7 +55,7 @@ def capture_one(host:str,commands:list[str],username:str,password:str,
             except Exception as exc:
                 result.commands_failed.append('show running-config backup ('+type(exc).__name__+')')
         full=content_header(host,name,snap)+''.join(command_block(c,records[c]) for c in commands)
-        store_capture(root,snap,host,full,platform,backup=backup_content)
+        store_capture(root,snap,host,full,platform,backup=backup_content,templates_dir=templates_dir)
         result.success=not result.commands_failed
         result.reason='Completed' if result.success else f'{len(result.commands_failed)} command/backup failure(s)'
     except Exception as exc:
@@ -68,7 +68,8 @@ def capture_one(host:str,commands:list[str],username:str,password:str,
 
 
 def collect_all(hosts:list[str],commands:list[str],username:str,password:str,
-                root:Path,snap:str,platform:str,backup:bool,workers:int)->list[Result]:
+                root:Path,snap:str,platform:str,backup:bool,workers:int,
+                templates_dir:Path|None=None)->list[Result]:
     try:
         from rich.console import Console
         from rich.progress import Progress,BarColumn,TaskProgressColumn,TextColumn
@@ -89,7 +90,7 @@ def collect_all(hosts:list[str],commands:list[str],username:str,password:str,
         with progress if progress else contextlib.nullcontext():
             task=progress.add_task('checks',total=len(hosts)) if progress else None
             with ThreadPoolExecutor(max_workers=min(workers,len(hosts))) as pool:
-                futures={pool.submit(capture_one,h,commands,username,password,root,snap,platform,backup):h for h in hosts}
+                futures={pool.submit(capture_one,h,commands,username,password,root,snap,platform,backup,templates_dir):h for h in hosts}
                 for idx,f in enumerate(as_completed(futures),1):
                     r=f.result()
                     results.append(r)

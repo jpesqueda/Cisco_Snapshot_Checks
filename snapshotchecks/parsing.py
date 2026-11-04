@@ -7,6 +7,7 @@ No raw show running-config is copied into JSON or HTML reports.
 from __future__ import annotations
 
 import re
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -59,42 +60,140 @@ def extract_commands(raw: str) -> dict[str, str]:
     return results
 
 
-def textfsm_parse(command: str, data: str, platform: str) -> list[dict[str, Any]] | None:
-    """Prefer NTC parse_output; use registered local TextFSM templates if needed.
 
-    Add a TextFSM file under custom_templates/ and an entry in index.yaml.
-    The command will be PARSED_UNMAPPED until a semantic normalizer is registered.
+# External templates can be placed in this directory next to SnapshotChecks.py.
+# An explicitly supplied --templates-dir always wins.
+AUTO_TEMPLATE_DIRS = ('ntc_templates_cisco_ios', 'custom_ntc_templates')
+
+
+def resolve_templates_dir(templates_dir: str | Path | None = None) -> Path | None:
+    """Choose a trusted local template directory, without altering global NTC settings."""
+    if templates_dir is not None:
+        directory = Path(templates_dir).expanduser().resolve()
+        if not directory.is_dir():
+            raise ValueError(f'TextFSM template directory not found: {directory}')
+        return directory
+    project_dir = Path(__file__).resolve().parent.parent
+    for name in AUTO_TEMPLATE_DIRS:
+        candidate = project_dir / name
+        if candidate.is_dir():
+            return candidate.resolve()
+    return None
+
+
+def candidate_template_names(command: str, platform: str) -> tuple[str, ...]:
+    """Match complete commands only: never match show switch to show switch detail."""
+    command = canonical_command(command)
+    names = [command]
+    # These IOS-XE spellings mean the same command; no prefix/wildcard matching.
+    interchangeable = {
+        'show interface status': ['show interfaces status'],
+        'show interfaces link': ['show interface link'],
+        'show interface link': ['show interfaces link'],
+        'show interfaces counters errors': ['show interface counters errors'],
+        'show interfaces switchport': ['show interface switchport'],
+        'show interfaces transceiver detail': ['show interface transceiver detail'],
+    }
+    names.extend(interchangeable.get(command, []))
+    return tuple(dict.fromkeys(
+        platform + '_' + re.sub(r'[^a-z0-9]+', '_', name).strip('_') + '.textfsm'
+        for name in names
+    ))
+
+
+def find_custom_template(command: str, platform: str, directory: Path) -> Path | None:
+    """Resolve YAML-mapped or convention-named templates with safe path checking."""
+    index_yaml = directory / 'index.yaml'
+    mapped = None
+    if index_yaml.is_file():
+        # YAML mapping is optional. An NTC-format 'index' is handled separately.
+        try:
+            import yaml
+            mapping = yaml.safe_load(index_yaml.read_text(encoding='utf-8')) or {}
+            mapped = mapping.get(platform, {}).get(canonical_command(command))
+        except (ImportError, OSError, ValueError, TypeError, AttributeError):
+            mapped = None
+    filenames = ([mapped] if isinstance(mapped, str) else []) + list(candidate_template_names(command, platform))
+    resolved = directory.resolve()
+    for filename in filenames:
+        candidate = (resolved / filename).resolve()
+        if candidate.is_relative_to(resolved) and candidate.is_file() and candidate.suffix.lower()=='.textfsm':
+            return candidate
+    return None
+
+
+@dataclass(frozen=True)
+class TextFSMResult:
+    rows: list[dict[str, Any]] | None = None
+    parser: str | None = None
+    template: str | None = None
+    error: str | None = None
+
+
+def _parse_template_file(template: Path, data: str, source: str) -> TextFSMResult:
+    try:
+        import textfsm
+    except ImportError:
+        return TextFSMResult(parser=source, template=template.name,
+                             error='textfsm not installed; run python -m pip install -r requirements.txt')
+    try:
+        with template.open(encoding='utf-8-sig') as stream:
+            table = textfsm.TextFSM(stream)
+            parsed = table.ParseText(data)
+        if not parsed:
+            return TextFSMResult(parser=source, template=template.name,
+                                 error='Template matched command name but did not match output')
+        headers=[name.lower() for name in table.header]
+        return TextFSMResult(rows=[dict(zip(headers,row)) for row in parsed],
+                             parser=source,template=template.name)
+    except Exception as exc:
+        return TextFSMResult(parser=source,template=template.name,
+                             error=f'{type(exc).__name__}: {str(exc)[:180]}')
+
+
+def textfsm_parse(command: str, data: str, platform: str,
+                  templates_dir: Path | None = None) -> TextFSMResult:
+    """Try packaged NTC, user templates, then project-bundled templates.
+
+    User templates support either a standard NTC 'index', an optional index.yaml
+    command mapping or the canonical cisco_ios_show_....textfsm filename alone.
+    NTC matching and template parsing are separate from semantic normalization.
     """
     try:
         from ntc_templates.parse import parse_output
+    except ImportError:
+        parse_output = None
+
+    if parse_output is not None:
         try:
             parsed = parse_output(platform=platform, command=command, data=data)
-            if isinstance(parsed, list) and parsed and isinstance(parsed[0], dict):
-                return parsed
+            if isinstance(parsed,list) and parsed and isinstance(parsed[0],dict):
+                return TextFSMResult(rows=parsed,parser='ntc_templates')
         except Exception:
-            pass  # Unknown template or no match; local template gets next attempt.
-    except ImportError:
-        pass
-    base = Path(__file__).resolve().parent.parent / 'custom_templates'
-    index = base / 'index.yaml'
-    if not index.is_file():
-        return None
-    try:
-        import textfsm
-        import yaml
-        mapping = yaml.safe_load(index.read_text(encoding='utf-8')) or {}
-        filename = mapping.get(platform, {}).get(command)
-        if not filename:
-            return None
-        template = (base / filename).resolve()
-        if not template.is_relative_to(base.resolve()) or not template.is_file():
-            raise ValueError('Unsafe or missing custom template file')
-        with template.open(encoding='utf-8') as stream:
-            table = textfsm.TextFSM(stream)
-            records = table.ParseText(data)
-            return [dict(zip([h.lower() for h in table.header], row)) for row in records] if records else None
-    except (ImportError, OSError, ValueError, TypeError):
-        return None
+            pass  # No packaged template; fall back to explicitly supplied templates.
+
+    project_templates = Path(__file__).resolve().parent.parent / 'custom_templates'
+    search_dirs = [p for p in (templates_dir, project_templates) if p is not None and p.is_dir()]
+    first_error: TextFSMResult | None = None
+    for directory in search_dirs:
+        source='custom_textfsm' if directory != project_templates else 'bundled_textfsm'
+        # Standard NTC cli-table index is supported when present in the user's directory.
+        if (directory / 'index').is_file() and parse_output is not None:
+            try:
+                parsed = parse_output(platform=platform, command=command, data=data,
+                                      template_dir=str(directory))
+                if isinstance(parsed,list) and parsed and isinstance(parsed[0],dict):
+                    return TextFSMResult(rows=parsed,parser=source+'_index')
+            except Exception:
+                pass
+        template = find_custom_template(command,platform,directory)
+        if template:
+            result = _parse_template_file(template,data,source)
+            if result.rows is not None:
+                return result
+            if first_error is None:
+                first_error = result
+    return first_error or TextFSMResult()
 
 
 def _first(row: dict[str, Any], *keys: str, default: Any = None) -> Any:
@@ -383,7 +482,8 @@ def _merge_dict(dest: dict, incoming: dict) -> None:
             dest.setdefault('_conflicts',{})[key]=[dest[key],value]
 
 
-def parse_capture(path: str | Path, *, platform: str='cisco_ios', snapshot: str | None = None) -> dict:
+def parse_capture(path: str | Path, *, platform: str='cisco_ios', snapshot: str | None = None,
+                  templates_dir: str | Path | None = None) -> dict:
     """Return model + coverage from a TXT capture; read-only, no SSH calls."""
     path=Path(path)
     text=path.read_text(encoding='utf-8-sig',errors='replace')
@@ -391,6 +491,7 @@ def parse_capture(path: str | Path, *, platform: str='cisco_ios', snapshot: str 
     host_match=re.search(r'^HOSTNAME:\s*(\S+)',text,re.M)
     target_match=re.search(r'^TARGET:\s*(\S+)',text,re.M)
     device=(host_match.group(1) if host_match else target_match.group(1) if target_match else path.stem)
+    selected_dir = resolve_templates_dir(templates_dir)
     model: dict[str,dict] = {}
     coverage: dict[str,dict] = {}
     for command, body in commands.items():
@@ -400,10 +501,14 @@ def parse_capture(path: str | Path, *, platform: str='cisco_ios', snapshot: str 
         if command=='show running-config':
             coverage[command]={'status':'SKIPPED_SENSITIVE','reason':'No raw configuration stored in JSON'}
             continue
-        rows=textfsm_parse(command,body,platform)
+        result=textfsm_parse(command,body,platform,selected_dir)
+        rows=result.rows
         if command not in NORMALIZERS:
-            coverage[command]={'status':'PARSED_UNMAPPED' if rows is not None else 'UNSUPPORTED',
-                               'parser':'ntc_templates' if rows is not None else None}
+            status = 'PARSED_UNMAPPED' if rows is not None else ('PARSE_ERROR' if result.error else 'UNSUPPORTED')
+            coverage[command] = {'status': status, 'parser': result.parser,
+                                 'records':len(rows) if rows is not None else 0}
+            if result.template:coverage[command]['template']=result.template
+            if result.error:coverage[command]['error']=result.error
             continue
         section,key,parser=NORMALIZERS[command]
         try:
@@ -419,11 +524,13 @@ def parse_capture(path: str | Path, *, platform: str='cisco_ios', snapshot: str 
                     elif isinstance(existing[key],dict):_merge_dict(existing[key],normalized)
                 else:_merge_dict(existing,normalized)
             coverage[command]={'status':'NORMALIZED',
-                               'parser':'ntc_templates' if rows is not None else 'builtin',
+                               'parser':result.parser if rows is not None else 'builtin',
                                'section':section,'records':len(normalized) if isinstance(normalized,dict) else 1}
+            if rows is not None and result.template:coverage[command]['template']=result.template
         except (ValueError,TypeError,KeyError) as exc:
             coverage[command]={'status':'PARSE_ERROR','error':str(exc),
-                               'parser':'ntc_templates' if rows is not None else 'builtin'}
+                               'parser':result.parser if rows is not None else 'builtin'}
+            if result.template:coverage[command]['template']=result.template
     return {'schema_version':1,'metadata':{'device':device,'source':str(path.name),'snapshot':snapshot,
            'platform':platform,'parsed_at':datetime.now().astimezone().isoformat(timespec='seconds'),
-           'command_count':len(commands)},'model':model,'coverage':coverage}
+           'command_count':len(commands),'templates_dir':str(selected_dir) if selected_dir else None},'model':model,'coverage':coverage}

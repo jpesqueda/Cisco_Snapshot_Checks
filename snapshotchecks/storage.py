@@ -44,12 +44,12 @@ def atomic_text(path:Path,text:str)->None:
 
 
 def store_capture(root:Path,snap:str,host:str,content:str,platform:str,
-                  backup:str|None=None)->tuple[Path,Path,dict]:
+                  backup:str|None=None,templates_dir:Path|str|None=None)->tuple[Path,Path,dict]:
     base=root/'Snapshots'/snap
     name=safe_name(host)
     raw=base/'Checks'/f'{name}.txt'
     data=base/'JSON'/f'{name}.json'
-    parsed=parse_capture_input(content,raw,platform,snap)
+    parsed=parse_capture_input(content,raw,platform,snap,templates_dir)
     parsed['metadata']['source']=raw.name
     # Atomic commit of TXT and JSON; root is not forcibly deleted.
     atomic_text(raw,content)
@@ -59,21 +59,23 @@ def store_capture(root:Path,snap:str,host:str,content:str,platform:str,
     return raw,data,parsed
 
 
-def parse_capture_input(content:str,path:Path,platform:str,snap:str)->dict:
+def parse_capture_input(content:str,path:Path,platform:str,snap:str,
+                        templates_dir:Path|str|None=None)->dict:
     """Use a unique temporary file because extract_commands reads the same format as raw captures."""
     tmp=path.parent/f'.{path.name}.{os.getpid()}.{time.monotonic_ns()}.parse.tmp'
     tmp.parent.mkdir(parents=True,exist_ok=True)
     try:
         tmp.write_text(content,encoding='utf-8')
-        return parse_capture(tmp,platform=platform,snapshot=snap)
+        return parse_capture(tmp,platform=platform,snapshot=snap,templates_dir=templates_dir)
     finally:
         tmp.unlink(missing_ok=True)
 
 
-def import_existing(root:Path,snap:str,source:Path,platform:str)->tuple[Path,Path,dict]:
+def import_existing(root:Path,snap:str,source:Path,platform:str,
+                    templates_dir:Path|str|None=None)->tuple[Path,Path,dict]:
     text=source.read_text(encoding='utf-8-sig',errors='replace')
     # Parse once from source, then save under stable host identifier.
-    parsed=parse_capture(source,platform=platform,snapshot=snap)
+    parsed=parse_capture(source,platform=platform,snapshot=snap,templates_dir=templates_dir)
     host=parsed['metadata']['device']
     dest=root/'Snapshots'/snap/'Checks'/f'{safe_name(host)}.txt'
     if dest.resolve()==source.resolve():
