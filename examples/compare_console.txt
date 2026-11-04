@@ -1,0 +1,14 @@
+======================================================================
+                    CISCO NETWORK SNAPSHOT CHECKS                     
+======================================================================
+C9300-ACCESS-01  INCOMPLETE
+C9300-ACCESS-01  [INCOMPLETE]
+├── EXPECTED  system
+│   └── root['os_version']: 17.5.5 -> 17.5.6
+├── PASS  hardware
+├── PASS  interfaces
+├── PASS  vlans
+├── PASS  routing
+├── PASS  layer2
+└── PASS  security
+Reports : examples/Lab/Reports/001_vs_002

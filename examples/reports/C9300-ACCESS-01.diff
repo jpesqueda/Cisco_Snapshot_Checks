@@ -1,0 +1,61 @@
+CISCO SNAPSHOT SMART DIFF
+==================================================================================
+Device   : C9300-ACCESS-01
+Compare  : Snapshot 001 -> 002
+Expected : 17.5.6
+Engine   : builtin_fallback
+----------------------------------------------------------------------------------
+[EXPECTED      ] system
+    root['os_version']
+      FROM: 17.5.5
+      TO  : 17.5.6
+[PASS          ] hardware
+[CHANGE        ] interfaces
+    root['GigabitEthernet1/0/15']['oper_status']
+      FROM: connected
+      TO  : notconnect
+[CHANGE        ] vlans
+    root['20']['status']
+      FROM: active
+      TO  : suspended
+[CHANGE        ] routing
+    root['bgp']['neighbors']['10.255.0.1']['state']
+      FROM: Established
+      TO  : Idle
+[PASS          ] layer2
+[PASS          ] security
+----------------------------------------------------------------------------------
+COMMAND COVERAGE
+  show clock: UNSUPPORTED -> UNSUPPORTED
+  show inventory: UNSUPPORTED -> UNSUPPORTED
+  show switch: UNSUPPORTED -> UNSUPPORTED
+  show module: UNSUPPORTED -> UNSUPPORTED
+  show license summary: UNSUPPORTED -> UNSUPPORTED
+  show interfaces: UNSUPPORTED -> UNSUPPORTED
+  show interfaces counters: UNSUPPORTED -> UNSUPPORTED
+  show interfaces switchport: UNSUPPORTED -> UNSUPPORTED
+  show spanning-tree summary: UNSUPPORTED -> UNSUPPORTED
+  show interfaces link: UNSUPPORTED -> UNSUPPORTED
+  show interfaces transceiver detail: UNSUPPORTED -> UNSUPPORTED
+  show mac address-table: UNSUPPORTED -> UNSUPPORTED
+  show mac address-table count: UNSUPPORTED -> UNSUPPORTED
+  show ip arp: UNSUPPORTED -> UNSUPPORTED
+  show ip arp inspection interfaces: UNSUPPORTED -> UNSUPPORTED
+  show ip route summary: UNSUPPORTED -> UNSUPPORTED
+  show ip protocols: UNSUPPORTED -> UNSUPPORTED
+  show cdp neighbors: UNSUPPORTED -> UNSUPPORTED
+  show cdp neighbors detail: UNSUPPORTED -> UNSUPPORTED
+  show lldp neighbors: UNSUPPORTED -> UNSUPPORTED
+  show lldp neighbors detail: UNSUPPORTED -> UNSUPPORTED
+  show power inline: UNSUPPORTED -> UNSUPPORTED
+  show authentication sessions: UNSUPPORTED -> UNSUPPORTED
+  show ip dhcp snooping: UNSUPPORTED -> UNSUPPORTED
+  show ip dhcp snooping binding: UNSUPPORTED -> UNSUPPORTED
+  show device-tracking database: UNSUPPORTED -> UNSUPPORTED
+  show processes cpu sorted: UNSUPPORTED -> UNSUPPORTED
+  show processes memory sorted: UNSUPPORTED -> UNSUPPORTED
+  show logging: UNSUPPORTED -> UNSUPPORTED
+  show running-config: SKIPPED_SENSITIVE -> SKIPPED_SENSITIVE
+----------------------------------------------------------------------------------
+RESULT: CHANGE
+Unsupported/unmapped outputs are not asserted healthy; PASS refers only to evaluated fields.

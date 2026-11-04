@@ -1,0 +1,9 @@
+# Python 3.10+ | install via: python -m pip install -r requirements.txt
+netmiko>=4.0,<5
+rich>=13,<16
+ntc-templates>=6,<10
+textfsm>=1.1,<3
+deepdiff>=7,<10
+PyYAML>=6,<7
+textual>=7,<9  # Optional: interactive --tui viewer
+# No openpyxl required; CSV reports open directly in Excel.

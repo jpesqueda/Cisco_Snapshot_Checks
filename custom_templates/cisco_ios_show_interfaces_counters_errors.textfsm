@@ -1,0 +1,10 @@
+Value PORT (\S+)
+Value ALIGN (\d+)
+Value FCS (\d+)
+Value XMIT (\d+)
+Value RCV (\d+)
+Value UNDER (\d+)
+Value DISCARD (\d+)
+
+Start
+  ^\s*${PORT}\s+${ALIGN}\s+${FCS}\s+${XMIT}\s+${RCV}\s+${UNDER}\s+${DISCARD}\s*$$ -> Record

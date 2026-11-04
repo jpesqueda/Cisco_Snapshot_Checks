@@ -1,0 +1,18 @@
+# Fields are a semantic ALLOWLIST. Counters, uptime, CPU, timestamps, MAC ages,
+# and BGP message counts never enter the compared projection.
+# Add a field only after the corresponding normalizer produces it reliably.
+sections:
+  system:
+    fields: [os_version]
+  hardware:
+    fields: [environment]
+  interfaces:
+    fields: [oper_status, description, access_vlan, l3_status, protocol, ip_address, error_present]
+  vlans:
+    fields: [name, status]
+  routing:
+    fields: [bgp, routes]
+  layer2:
+    fields: [stp_roots, trunks, etherchannels]
+  security:
+    fields: [port_security]

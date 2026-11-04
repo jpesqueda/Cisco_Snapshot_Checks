@@ -1,0 +1,43 @@
+show clock
+show version
+show inventory
+show switch
+show module
+show environment all
+show license summary
+show interfaces
+show interfaces description
+show interfaces counters
+show interfaces counters errors
+show interface status
+show interfaces switchport
+show ip interface brief
+show vlan brief
+show spanning-tree summary
+show spanning-tree root
+show interfaces trunk
+show interfaces link
+show interfaces transceiver detail
+show mac address-table
+show mac address-table count
+show ip arp
+show ip arp inspection interfaces
+show ip route
+show ip route summary
+show ip protocols
+show ip bgp summary
+show cdp neighbors
+show cdp neighbors detail
+show lldp neighbors
+show lldp neighbors detail
+show etherchannel summary
+show port-security
+show power inline
+show authentication sessions
+show ip dhcp snooping
+show ip dhcp snooping binding
+show device-tracking database
+show processes cpu sorted
+show processes memory sorted
+show logging
+show running-config

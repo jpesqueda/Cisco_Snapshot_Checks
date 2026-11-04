@@ -1,0 +1,3 @@
+# Replace with your authorized switch hostname or IP.
+sw01.example.net
+sw02.example.net

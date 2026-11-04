@@ -1,0 +1,7 @@
+======================================================================
+                    CISCO NETWORK SNAPSHOT CHECKS                     
+======================================================================
+Imported : examples/Lab/Snapshots/002/Checks/C9300-ACCESS-01.txt
+Parsed   : examples/Lab/Snapshots/002/JSON/C9300-ACCESS-01.json
+Device   : C9300-ACCESS-01
+Coverage : UNSUPPORTED=29, NORMALIZED=13, SKIPPED_SENSITIVE=1

@@ -1,0 +1,5 @@
+# Add new templates here; only supported matches are used.
+# For new CLI commands, also add a semantic normalizer in parsing.py
+# before the command can contribute to the cross-platform comparison.
+cisco_ios:
+  show interfaces counters errors: cisco_ios_show_interfaces_counters_errors.textfsm
