@@ -5,7 +5,7 @@
   "snapshot_to": "002",
   "expected_version": "17.5.6",
   "comparison_engine": "builtin_fallback",
-  "overall_status": "CHANGE",
+  "overall_status": "INCOMPLETE",
   "sections": {
     "system": {
       "status": "EXPECTED",
@@ -19,12 +19,82 @@
       ],
       "rows": [
         {
+          "field": "licensing / authorization",
+          "old": "authorized (simulated)",
+          "new": "authorized (simulated)",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "licensing / licenses / dna-advantage / status",
+          "old": "in use",
+          "new": "in use",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "licensing / licenses / network-advantage / status",
+          "old": "in use",
+          "new": "in use",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "licensing / registration",
+          "old": "registered (simulated)",
+          "new": "registered (simulated)",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "licensing / smart_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "logging / enabled",
+          "old": true,
+          "new": true,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "logging / remote_servers",
+          "old": [
+            "192.0.2.30",
+            "192.0.2.31"
+          ],
+          "new": [
+            "192.0.2.30",
+            "192.0.2.31"
+          ],
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "os_version",
           "old": "17.5.5",
           "new": "17.5.6",
           "old_present": true,
           "new_present": true,
           "status": "EXPECTED"
+        },
+        {
+          "field": "time_source",
+          "old": "NTP",
+          "new": "NTP",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
         }
       ]
     },
@@ -32,6 +102,14 @@
       "status": "PASS",
       "changes": [],
       "rows": [
+        {
+          "field": "cpu_health / cpu_high_5min",
+          "old": false,
+          "new": false,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
         {
           "field": "environment / switch 1 fan 1",
           "old": "OK",
@@ -79,24 +157,625 @@
           "old_present": true,
           "new_present": true,
           "status": "PASS"
+        },
+        {
+          "field": "inventory / Switch 1 / pid",
+          "old": "C9300-48P",
+          "new": "C9300-48P",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / Switch 1 / serial",
+          "old": "FOC2601A001",
+          "new": "FOC2601A001",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / Switch 1 / vid",
+          "old": "V03",
+          "new": "V03",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / Switch 1 - Network Module / pid",
+          "old": "C9300-NM-4X",
+          "new": "C9300-NM-4X",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / Switch 1 - Network Module / serial",
+          "old": "FOC2601N001",
+          "new": "FOC2601N001",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / Switch 1 - Network Module / vid",
+          "old": "V02",
+          "new": "V02",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / Switch 1 - Power Supply A / pid",
+          "old": "PWR-C1-715WAC",
+          "new": "PWR-C1-715WAC",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / Switch 1 - Power Supply A / serial",
+          "old": "LIT2601P001",
+          "new": "LIT2601P001",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / Switch 1 - Power Supply A / vid",
+          "old": "V02",
+          "new": "V02",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / Switch 1 - Power Supply B / pid",
+          "old": "PWR-C1-715WAC",
+          "new": "PWR-C1-715WAC",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / Switch 1 - Power Supply B / serial",
+          "old": "LIT2601P002",
+          "new": "LIT2601P002",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / Switch 1 - Power Supply B / vid",
+          "old": "V02",
+          "new": "V02",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / c93xx Stack / pid",
+          "old": "C9300-48P",
+          "new": "C9300-48P",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / c93xx Stack / serial",
+          "old": "FOC2601A001",
+          "new": "FOC2601A001",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "inventory / c93xx Stack / vid",
+          "old": "V03",
+          "new": "V03",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "memory_health / memory_pressure",
+          "old": false,
+          "new": false,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "modules / FOC2601A001 / model",
+          "old": "C9300-48P",
+          "new": "C9300-48P",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "modules / FOC2601A001 / module",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "modules / FOC2601N001 / model",
+          "old": "C9300-NM-4X",
+          "new": "C9300-NM-4X",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "modules / FOC2601N001 / module",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/1 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/10 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/11 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/12 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/13 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/14 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/15 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/16 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/17 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/18 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/19 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/2 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/20 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/21 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/22 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/23 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/24 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/25 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/26 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/27 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/28 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/29 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/3 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/30 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/31 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/32 / oper_status",
+          "old": "on",
+          "new": "on",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/33 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/34 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/35 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/36 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/37 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/38 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/39 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/4 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/40 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/41 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/42 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/43 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/44 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/45 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/46 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/47 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/48 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/5 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/6 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/7 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/8 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "poe / GigabitEthernet1/0/9 / oper_status",
+          "old": "off",
+          "new": "off",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "stack / 1 / role",
+          "old": "active",
+          "new": "active",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "stack / 1 / state",
+          "old": "ready",
+          "new": "ready",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "transceivers / TenGigabitEthernet1/1/1 / present",
+          "old": true,
+          "new": true,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "transceivers / TenGigabitEthernet1/1/2 / present",
+          "old": false,
+          "new": false,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "transceivers / TenGigabitEthernet1/1/3 / present",
+          "old": false,
+          "new": false,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "transceivers / TenGigabitEthernet1/1/4 / present",
+          "old": false,
+          "new": false,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
         }
       ]
     },
     "interfaces": {
-      "status": "CHANGE",
-      "changes": [
-        {
-          "path": "root['GigabitEthernet1/0/15']['oper_status']",
-          "change": "changed",
-          "old": "connected",
-          "new": "notconnect"
-        }
-      ],
+      "status": "PASS",
+      "changes": [],
       "rows": [
         {
           "field": "GigabitEthernet1/0/1 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/1 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/1 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -134,6 +813,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/1 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/1 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/1 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/1 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -150,9 +853,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/1 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/1 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/10 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/10 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/10 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -190,6 +925,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/10 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/10 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/10 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/10 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -206,9 +965,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/10 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/10 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/11 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/11 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/11 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -246,6 +1037,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/11 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/11 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/11 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/11 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -262,9 +1077,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/11 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/11 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/12 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/12 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/12 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -302,6 +1149,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/12 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/12 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/12 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/12 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -318,9 +1189,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/12 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/12 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/13 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/13 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/13 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -358,6 +1261,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/13 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/13 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/13 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/13 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -374,9 +1301,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/13 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/13 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/14 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/14 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/14 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -414,6 +1373,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/14 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/14 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/14 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/14 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -430,9 +1413,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/14 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/14 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/15 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/15 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/15 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -470,12 +1485,36 @@
           "status": "PASS"
         },
         {
-          "field": "GigabitEthernet1/0/15 / oper_status",
-          "old": "connected",
-          "new": "notconnect",
+          "field": "GigabitEthernet1/0/15 / link_status",
+          "old": "up",
+          "new": "up",
           "old_present": true,
           "new_present": true,
-          "status": "CHANGE"
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/15 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/15 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/15 / oper_status",
+          "old": "connected",
+          "new": "connected",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
         },
         {
           "field": "GigabitEthernet1/0/15 / protocol",
@@ -486,9 +1525,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/15 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/15 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/16 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/16 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/16 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -526,6 +1597,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/16 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/16 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/16 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/16 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -542,9 +1637,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/16 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/16 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/17 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/17 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/17 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -582,6 +1709,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/17 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/17 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/17 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/17 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -598,9 +1749,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/17 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/17 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/18 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/18 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/18 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -638,6 +1821,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/18 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/18 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/18 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/18 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -654,9 +1861,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/18 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/18 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/19 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/19 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/19 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -694,6 +1933,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/19 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/19 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/19 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/19 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -710,9 +1973,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/19 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/19 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/2 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/2 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/2 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -750,6 +2045,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/2 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/2 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/2 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/2 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -766,9 +2085,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/2 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/2 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/20 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/20 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/20 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -806,6 +2157,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/20 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/20 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/20 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/20 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -822,9 +2197,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/20 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/20 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/21 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/21 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/21 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -862,6 +2269,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/21 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/21 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/21 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/21 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -878,9 +2309,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/21 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/21 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/22 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/22 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/22 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -918,6 +2381,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/22 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/22 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/22 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/22 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -934,9 +2421,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/22 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/22 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/23 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/23 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/23 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -974,6 +2493,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/23 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/23 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/23 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/23 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -990,9 +2533,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/23 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/23 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/24 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/24 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/24 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1030,6 +2605,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/24 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/24 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/24 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/24 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1046,9 +2645,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/24 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/24 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/25 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/25 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/25 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1086,6 +2717,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/25 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/25 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/25 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/25 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1102,9 +2757,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/25 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/25 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/26 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/26 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/26 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1142,6 +2829,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/26 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/26 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/26 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/26 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1158,9 +2869,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/26 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/26 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/27 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/27 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/27 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1198,6 +2941,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/27 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/27 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/27 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/27 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1214,9 +2981,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/27 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/27 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/28 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/28 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/28 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1254,6 +3053,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/28 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/28 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/28 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/28 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1270,9 +3093,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/28 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/28 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/29 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/29 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/29 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1310,6 +3165,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/29 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/29 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/29 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/29 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1326,9 +3205,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/29 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/29 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/3 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/3 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/3 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1366,6 +3277,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/3 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/3 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/3 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/3 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1382,9 +3317,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/3 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/3 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/30 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/30 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/30 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1422,6 +3389,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/30 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/30 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/30 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/30 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1438,9 +3429,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/30 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/30 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/31 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/31 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/31 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1478,6 +3501,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/31 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/31 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/31 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/31 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1494,9 +3541,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/31 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/31 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/32 / access_vlan",
           "old": "30",
           "new": "30",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/32 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/32 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1534,6 +3613,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/32 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/32 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/32 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/32 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1550,9 +3653,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/32 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/32 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/33 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/33 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/33 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1590,6 +3725,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/33 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/33 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/33 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/33 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1606,9 +3765,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/33 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/33 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/34 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/34 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/34 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1646,6 +3837,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/34 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/34 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/34 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/34 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1662,9 +3877,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/34 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/34 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/35 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/35 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/35 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1702,6 +3949,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/35 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/35 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/35 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/35 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1718,9 +3989,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/35 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/35 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/36 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/36 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/36 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1758,6 +4061,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/36 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/36 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/36 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/36 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1774,9 +4101,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/36 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/36 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/37 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/37 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/37 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1814,6 +4173,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/37 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/37 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/37 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/37 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1830,9 +4213,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/37 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/37 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/38 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/38 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/38 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1870,6 +4285,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/38 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/38 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/38 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/38 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1886,9 +4325,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/38 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/38 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/39 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/39 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/39 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1926,6 +4397,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/39 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/39 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/39 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/39 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1942,9 +4437,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/39 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/39 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/4 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/4 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/4 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -1982,6 +4509,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/4 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/4 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/4 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/4 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -1998,9 +4549,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/4 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/4 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/40 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/40 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/40 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2038,6 +4621,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/40 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/40 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/40 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/40 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2054,9 +4661,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/40 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/40 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/41 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/41 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/41 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2094,6 +4733,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/41 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/41 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/41 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/41 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2110,9 +4773,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/41 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/41 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/42 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/42 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/42 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2150,6 +4845,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/42 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/42 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/42 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/42 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2166,9 +4885,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/42 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/42 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/43 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/43 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/43 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2206,6 +4957,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/43 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/43 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/43 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/43 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2222,9 +4997,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/43 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/43 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/44 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/44 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/44 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2262,6 +5069,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/44 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/44 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/44 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/44 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2278,9 +5109,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/44 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/44 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/45 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/45 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/45 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2318,6 +5181,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/45 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/45 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/45 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/45 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2334,9 +5221,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/45 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/45 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/46 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/46 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/46 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2374,6 +5293,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/46 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/46 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/46 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/46 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2390,9 +5333,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/46 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/46 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/47 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/47 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/47 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2430,6 +5405,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/47 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/47 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/47 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/47 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2446,9 +5445,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/47 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/47 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/48 / access_vlan",
           "old": "10",
           "new": "10",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/48 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/48 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2486,6 +5517,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/48 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/48 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/48 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/48 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2502,9 +5557,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/48 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/48 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/5 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/5 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/5 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2542,6 +5629,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/5 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/5 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/5 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/5 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2558,9 +5669,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/5 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/5 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/6 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/6 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/6 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2598,6 +5741,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/6 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/6 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/6 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/6 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2614,9 +5781,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/6 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/6 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/7 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/7 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/7 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2654,6 +5853,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/7 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/7 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/7 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/7 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2670,9 +5893,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/7 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/7 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/8 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/8 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/8 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2710,6 +5965,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/8 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/8 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/8 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/8 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2726,9 +6005,41 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/8 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/8 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/9 / access_vlan",
           "old": "20",
           "new": "20",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/9 / admin_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/9 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2766,6 +6077,30 @@
           "status": "PASS"
         },
         {
+          "field": "GigabitEthernet1/0/9 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/9 / native_vlan",
+          "old": "1",
+          "new": "1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/9 / oper_mode",
+          "old": "static access",
+          "new": "static access",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "GigabitEthernet1/0/9 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2777,6 +6112,22 @@
           "field": "GigabitEthernet1/0/9 / protocol",
           "old": "up",
           "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/9 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "GigabitEthernet1/0/9 / switchport_enabled",
+          "old": "enabled",
+          "new": "enabled",
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2806,7 +6157,23 @@
           "status": "PASS"
         },
         {
+          "field": "Loopback0 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "Loopback0 / protocol",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "Loopback0 / protocol_status",
           "old": "up",
           "new": "up",
           "old_present": true,
@@ -2817,6 +6184,14 @@
           "field": "TenGigabitEthernet1/1/1 / access_vlan",
           "old": "routed",
           "new": "routed",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "TenGigabitEthernet1/1/1 / counter_collection_present",
+          "old": true,
+          "new": true,
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2854,6 +6229,14 @@
           "status": "PASS"
         },
         {
+          "field": "TenGigabitEthernet1/1/1 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "TenGigabitEthernet1/1/1 / oper_status",
           "old": "connected",
           "new": "connected",
@@ -2865,6 +6248,22 @@
           "field": "TenGigabitEthernet1/1/1 / protocol",
           "old": "up",
           "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "TenGigabitEthernet1/1/1 / protocol_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "TenGigabitEthernet1/1/1 / switchport_enabled",
+          "old": "disabled",
+          "new": "disabled",
           "old_present": true,
           "new_present": true,
           "status": "PASS"
@@ -2902,6 +6301,14 @@
           "status": "PASS"
         },
         {
+          "field": "TenGigabitEthernet1/1/2 / link_status",
+          "old": "administratively down",
+          "new": "administratively down",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "TenGigabitEthernet1/1/2 / oper_status",
           "old": "disabled",
           "new": "disabled",
@@ -2911,6 +6318,14 @@
         },
         {
           "field": "TenGigabitEthernet1/1/2 / protocol",
+          "old": "down",
+          "new": "down",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "TenGigabitEthernet1/1/2 / protocol_status",
           "old": "down",
           "new": "down",
           "old_present": true,
@@ -2950,6 +6365,14 @@
           "status": "PASS"
         },
         {
+          "field": "TenGigabitEthernet1/1/3 / link_status",
+          "old": "administratively down",
+          "new": "administratively down",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "TenGigabitEthernet1/1/3 / oper_status",
           "old": "disabled",
           "new": "disabled",
@@ -2959,6 +6382,14 @@
         },
         {
           "field": "TenGigabitEthernet1/1/3 / protocol",
+          "old": "down",
+          "new": "down",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "TenGigabitEthernet1/1/3 / protocol_status",
           "old": "down",
           "new": "down",
           "old_present": true,
@@ -2998,6 +6429,14 @@
           "status": "PASS"
         },
         {
+          "field": "TenGigabitEthernet1/1/4 / link_status",
+          "old": "administratively down",
+          "new": "administratively down",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "TenGigabitEthernet1/1/4 / oper_status",
           "old": "disabled",
           "new": "disabled",
@@ -3007,6 +6446,14 @@
         },
         {
           "field": "TenGigabitEthernet1/1/4 / protocol",
+          "old": "down",
+          "new": "down",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "TenGigabitEthernet1/1/4 / protocol_status",
           "old": "down",
           "new": "down",
           "old_present": true,
@@ -3038,7 +6485,23 @@
           "status": "PASS"
         },
         {
+          "field": "Vlan10 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "Vlan10 / protocol",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "Vlan10 / protocol_status",
           "old": "up",
           "new": "up",
           "old_present": true,
@@ -3070,7 +6533,23 @@
           "status": "PASS"
         },
         {
+          "field": "Vlan20 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "Vlan20 / protocol",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "Vlan20 / protocol_status",
           "old": "up",
           "new": "up",
           "old_present": true,
@@ -3102,7 +6581,23 @@
           "status": "PASS"
         },
         {
+          "field": "Vlan30 / link_status",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "Vlan30 / protocol",
+          "old": "up",
+          "new": "up",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "Vlan30 / protocol_status",
           "old": "up",
           "new": "up",
           "old_present": true,
@@ -3112,15 +6607,8 @@
       ]
     },
     "vlans": {
-      "status": "CHANGE",
-      "changes": [
-        {
-          "path": "root['20']['status']",
-          "change": "changed",
-          "old": "active",
-          "new": "suspended"
-        }
-      ],
+      "status": "PASS",
+      "changes": [],
       "rows": [
         {
           "field": "VLAN 1 / name",
@@ -3165,10 +6653,10 @@
         {
           "field": "VLAN 20 / status",
           "old": "active",
-          "new": "suspended",
+          "new": "active",
           "old_present": true,
           "new_present": true,
-          "status": "CHANGE"
+          "status": "PASS"
         },
         {
           "field": "VLAN 30 / name",
@@ -3189,15 +6677,8 @@
       ]
     },
     "routing": {
-      "status": "CHANGE",
-      "changes": [
-        {
-          "path": "root['bgp']['neighbors']['10.255.0.1']['state']",
-          "change": "changed",
-          "old": "Established",
-          "new": "Idle"
-        }
-      ],
+      "status": "PASS",
+      "changes": [],
       "rows": [
         {
           "field": "bgp / local_as",
@@ -3226,10 +6707,42 @@
         {
           "field": "bgp / neighbors / 10.255.0.1 / state",
           "old": "Established",
-          "new": "Idle",
+          "new": "Established",
           "old_present": true,
           "new_present": true,
-          "status": "CHANGE"
+          "status": "PASS"
+        },
+        {
+          "field": "protocols / bgp 65010 / configured",
+          "old": true,
+          "new": true,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "route_summary / bgp 65010 / prefix_count",
+          "old": 1,
+          "new": 1,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "route_summary / connected / prefix_count",
+          "old": 5,
+          "new": 5,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "route_summary / local / prefix_count",
+          "old": 4,
+          "new": 4,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
         },
         {
           "field": "routes / 0.0.0.0/0 / interface",
@@ -3478,7 +6991,79 @@
       "changes": [],
       "rows": [
         {
+          "field": "cdp / TenGigabitEthernet1/1/1 / neighbor",
+          "old": "CORE-01",
+          "new": "CORE-01",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "cdp / TenGigabitEthernet1/1/1 / remote_interface",
+          "old": "TenGigabitEthernet1/0/1",
+          "new": "TenGigabitEthernet1/0/1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "cdp_detail / TenGigabitEthernet1/1/1 / neighbor",
+          "old": "CORE-01",
+          "new": "CORE-01",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "cdp_detail / TenGigabitEthernet1/1/1 / remote_interface",
+          "old": "TenGigabitEthernet1/0/1",
+          "new": "TenGigabitEthernet1/0/1",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "etherchannels",
+          "old": {},
+          "new": {},
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "lldp / enabled",
+          "old": false,
+          "new": false,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "lldp / neighbors",
+          "old": {},
+          "new": {},
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "lldp_detail / enabled",
+          "old": false,
+          "new": false,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "lldp_detail / neighbors",
+          "old": {},
+          "new": {},
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "mac_static / static_entries",
           "old": {},
           "new": {},
           "old_present": true,
@@ -3534,6 +7119,14 @@
           "status": "PASS"
         },
         {
+          "field": "stp_summary / mode",
+          "old": "rapid-pvst",
+          "new": "rapid-pvst",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
           "field": "trunks",
           "old": {},
           "new": {},
@@ -3547,6 +7140,54 @@
       "status": "PASS",
       "changes": [],
       "rows": [
+        {
+          "field": "arp_inspection / GigabitEthernet1/0/1-48 / rate_pps",
+          "old": "none",
+          "new": "none",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "arp_inspection / GigabitEthernet1/0/1-48 / trust_state",
+          "old": "untrusted",
+          "new": "untrusted",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "arp_inspection / TenGigabitEthernet1/1/1 / rate_pps",
+          "old": "none",
+          "new": "none",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "arp_inspection / TenGigabitEthernet1/1/1 / trust_state",
+          "old": "untrusted",
+          "new": "untrusted",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "auth_sessions / has_sessions",
+          "old": false,
+          "new": false,
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
+        {
+          "field": "dhcp_snooping / state",
+          "old": "disabled",
+          "new": "disabled",
+          "old_present": true,
+          "new_present": true,
+          "status": "PASS"
+        },
         {
           "field": "port_security / GigabitEthernet1/0/1 / action",
           "old": "restrict",
@@ -4320,9 +7961,9 @@
   },
   "commands": {
     "show clock": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show version": {
       "first": "NORMALIZED",
@@ -4330,19 +7971,19 @@
       "status": "NORMALIZED"
     },
     "show inventory": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show switch": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show module": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show environment all": {
       "first": "NORMALIZED",
@@ -4350,14 +7991,14 @@
       "status": "NORMALIZED"
     },
     "show license summary": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show interfaces": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show interfaces description": {
       "first": "NORMALIZED",
@@ -4365,9 +8006,9 @@
       "status": "NORMALIZED"
     },
     "show interfaces counters": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show interfaces counters errors": {
       "first": "NORMALIZED",
@@ -4380,9 +8021,9 @@
       "status": "NORMALIZED"
     },
     "show interfaces switchport": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show ip interface brief": {
       "first": "NORMALIZED",
@@ -4395,9 +8036,9 @@
       "status": "NORMALIZED"
     },
     "show spanning-tree summary": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show spanning-tree root": {
       "first": "NORMALIZED",
@@ -4410,34 +8051,34 @@
       "status": "NORMALIZED"
     },
     "show interfaces link": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show interfaces transceiver detail": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show mac address-table": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show mac address-table count": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show ip arp": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show ip arp inspection interfaces": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show ip route": {
       "first": "NORMALIZED",
@@ -4445,14 +8086,14 @@
       "status": "NORMALIZED"
     },
     "show ip route summary": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show ip protocols": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show ip bgp summary": {
       "first": "NORMALIZED",
@@ -4460,24 +8101,24 @@
       "status": "NORMALIZED"
     },
     "show cdp neighbors": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show cdp neighbors detail": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show lldp neighbors": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show lldp neighbors detail": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show etherchannel summary": {
       "first": "NORMALIZED",
@@ -4490,44 +8131,44 @@
       "status": "NORMALIZED"
     },
     "show power inline": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show authentication sessions": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show ip dhcp snooping": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show ip dhcp snooping binding": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show device-tracking database": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show processes cpu sorted": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show processes memory sorted": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show logging": {
-      "first": "UNSUPPORTED",
-      "second": "UNSUPPORTED",
-      "status": "UNSUPPORTED"
+      "first": "NORMALIZED",
+      "second": "NORMALIZED",
+      "status": "NORMALIZED"
     },
     "show running-config": {
       "first": "SKIPPED_SENSITIVE",

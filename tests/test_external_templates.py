@@ -56,14 +56,14 @@ class ExternalTemplateTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             d=Path(tmp)
             templates=d/'ntc_templates_cisco_ios'; templates.mkdir()
-            (templates/'cisco_ios_show_clock.textfsm').write_text('Value PORT (\\S+)\n')
+            (templates/'cisco_ios_show_unregistered_test.textfsm').write_text('Value PORT (\\S+)\n')
             raw=d/'switch.txt'
-            raw.write_text(content_header('SW01','SW01','001') + command_block('show clock','Gi1/0/1 0'),
+            raw.write_text(content_header('SW01','SW01','001') + command_block('show unregistered test','Gi1/0/1 0'),
                            encoding='utf-8')
             fake=types.SimpleNamespace(TextFSM=FakeTextFSM)
             with patch.dict('sys.modules',{'textfsm':fake,'ntc_templates':None,'ntc_templates.parse':None}):
                 parsed=parse_capture(raw,templates_dir=templates)
-            entry=parsed['coverage']['show clock']
+            entry=parsed['coverage']['show unregistered test']
             self.assertEqual(entry['status'],'PARSED_UNMAPPED')
             self.assertEqual(entry['parser'],'custom_textfsm')
             self.assertNotIn('clock',parsed['model'])

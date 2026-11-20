@@ -1,0 +1,23 @@
+Value Filldown SNOOPING_STATE (enabled|disabled)
+Value Filldown OPTION82_STATE (enabled|disabled)
+Value Required INTERFACE (\S+)
+Value TRUSTED (yes|no)
+Value RATE_LIMIT_PPS (\S+)
+Value ALLOW_OPTION (yes|no)
+
+Start
+  ^Switch\s+DHCP\s+snooping\s+is\s+${SNOOPING_STATE}\s*$$
+  ^Insertion\s+of\s+option\s+82\s+is\s+${OPTION82_STATE}\s*$$
+  ^\s*Interface\s+Trusted\s+Allow\s+option\s+Rate\s+limit\s+\(pps\)\s*$$ -> TableWithOption
+  ^\s*Interface\s+Trusted\s+Rate\s+limit\s+\(pps\)\s*$$ -> Table
+  ^.*$$
+
+Table
+  ^\s*-+\s+-+\s+-+\s*$$
+  ^\s*${INTERFACE}\s+${TRUSTED}\s+${RATE_LIMIT_PPS}\s*$$ -> Record
+  ^.*$$
+
+TableWithOption
+  ^\s*-+\s+-+\s+-+\s+-+\s*$$
+  ^\s*${INTERFACE}\s+${TRUSTED}\s+${ALLOW_OPTION}\s+${RATE_LIMIT_PPS}\s*$$ -> Record
+  ^.*$$

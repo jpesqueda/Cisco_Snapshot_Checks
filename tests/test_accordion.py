@@ -26,7 +26,7 @@ class AccordionTests(unittest.TestCase):
         self.assertGreater(len(rows), 100)
         self.assertTrue(all({'field','old','new','status'} <= row.keys() for row in rows))
         self.assertTrue(all(row['status']=='PASS' for row in rows))
-        version = report['sections']['system']['rows'][0]
+        version = next(r for r in report['sections']['system']['rows'] if r['field'] == 'os_version')
         self.assertEqual((version['old'],version['new'],version['status']),('17.5.5','17.5.6','EXPECTED'))
         self.assertEqual(report['overall_status'],'INCOMPLETE')
 
@@ -58,7 +58,7 @@ class AccordionTests(unittest.TestCase):
 
     def test_expected_version_error_on_row(self):
         result = compare_snapshots(self.pre,self.post,self.rules,'17.5.7')
-        self.assertEqual(result['sections']['system']['rows'][0]['status'],'ERROR')
+        self.assertEqual(next(r for r in result['sections']['system']['rows'] if r['field']=='os_version')['status'],'ERROR')
 
 
 if __name__ == '__main__':

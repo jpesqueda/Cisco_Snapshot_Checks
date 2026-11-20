@@ -10,13 +10,13 @@ from pathlib import Path
 from typing import Any
 
 DEFAULT_SECTIONS={
- 'system': ['os_version'],
- 'hardware': ['environment'],
- 'interfaces': ['oper_status','description','access_vlan','l3_status','protocol','ip_address'],
+ 'system': ['os_version','time_source','clock_readable','licensing','logging'],
+ 'hardware': ['environment','inventory','stack','poe','modules','transceivers','cpu_health','memory_health'],
+ 'interfaces': ['oper_status','description','access_vlan','l3_status','protocol','ip_address','link_status','protocol_status','switchport_enabled','admin_mode','oper_mode','voice_vlan','native_vlan','counter_collection_present','error_present'],
  'vlans': ['name','status'],
- 'routing': ['bgp','routes'],
- 'layer2': ['stp_roots','trunks','etherchannels'],
- 'security': ['port_security'],
+ 'routing': ['bgp','routes','route_summary','protocols'],
+ 'layer2': ['stp_roots','trunks','etherchannels','stp_summary','mac_static','cdp','cdp_detail','lldp','lldp_detail'],
+ 'security': ['port_security','arp_inspection','dhcp_snooping','auth_sessions'],
 }
 
 

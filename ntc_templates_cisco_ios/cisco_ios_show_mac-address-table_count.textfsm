@@ -1,0 +1,11 @@
+Value Filldown VLAN (\S+)
+Value DYNAMIC (\d+)
+Value STATIC (\d+)
+Value Required TOTAL (\d+)
+
+Start
+  ^\s*Mac\s+Entries\s+for\s+Vlan\s+${VLAN}:\s*$$
+  ^\s*Dynamic\s+Address\s+Count\s*:\s*${DYNAMIC}\s*$$
+  ^\s*Static\s+Address\s+Count\s*:\s*${STATIC}\s*$$
+  ^\s*Total\s+Mac\s+Addresses(?:\s+for\s+this\s+criterion)?\s*:\s*${TOTAL}\s*$$ -> Record
+  ^.*$$

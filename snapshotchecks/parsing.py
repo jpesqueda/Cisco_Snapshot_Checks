@@ -7,6 +7,7 @@ No raw show running-config is copied into JSON or HTML reports.
 from __future__ import annotations
 
 import re
+import csv
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -93,12 +94,61 @@ def candidate_template_names(command: str, platform: str) -> tuple[str, ...]:
         'show interfaces counters errors': ['show interface counters errors'],
         'show interfaces switchport': ['show interface switchport'],
         'show interfaces transceiver detail': ['show interface transceiver detail'],
+        'show processes cpu sorted': ['show processes cpu'],
     }
     names.extend(interchangeable.get(command, []))
     return tuple(dict.fromkeys(
         platform + '_' + re.sub(r'[^a-z0-9]+', '_', name).strip('_') + '.textfsm'
         for name in names
     ))
+
+
+def _equivalent_template_stems(command: str, platform: str) -> set[str]:
+    """Allow hyphens in filenames (mac-address-table, device-tracking)."""
+    names = set(candidate_template_names(command, platform))
+    return {re.sub(r'[^a-z0-9]', '', n[:-8].lower()) for n in names}
+
+
+def _index_regex(pattern: str) -> str:
+    """Expand TextFSM index's [[completion]] notation, for full-string checks."""
+    def repl(match: re.Match) -> str:
+        word = match.group(1)
+        return '(' + '('.join(word) + ')?' * len(word)
+    return re.sub(r'\[\[(.*?)\]\]', repl, pattern)
+
+
+def index_match(command: str, platform: str, directory: Path) -> str | None:
+    """Find an exact index match; reject overly broad generic interface matches.
+
+    Real CliTable indexes use prefix matching, so 'show interfaces' can otherwise
+    match 'show interfaces counters errors'. We validate the requested command
+    against the full index pattern before calling CliTable.
+    """
+    index = directory / 'index'
+    if not index.is_file():
+        return None
+    skip_generic = {'show interfaces description', 'show interface status',
+                    'show interfaces counters errors', 'show interfaces trunk'}
+    try:
+        with index.open(encoding='utf-8-sig', errors='replace', newline='') as stream:
+            records = csv.DictReader((line for line in stream if line.strip() and not line.lstrip().startswith('#')), skipinitialspace=True)
+            for row in records:
+                if str(row.get('Platform', '')).strip() != platform:
+                    continue
+                template = str(row.get('Template', '')).strip()
+                pattern = str(row.get('Command', '')).strip()
+                if command in skip_generic and template == f'{platform}_show_interfaces.textfsm':
+                    continue
+                try:
+                    if re.fullmatch(_index_regex(pattern), command, flags=re.I):
+                        filenames = template.split(':')
+                        if all((directory / fn).is_file() and '/' not in fn and chr(92) not in fn and '..' not in fn for fn in filenames):
+                            return template
+                except re.error:
+                    continue
+    except (OSError, UnicodeError):
+        return None
+    return None
 
 
 def find_custom_template(command: str, platform: str, directory: Path) -> Path | None:
@@ -119,6 +169,11 @@ def find_custom_template(command: str, platform: str, directory: Path) -> Path |
         candidate = (resolved / filename).resolve()
         if candidate.is_relative_to(resolved) and candidate.is_file() and candidate.suffix.lower()=='.textfsm':
             return candidate
+    # Existing user templates sometimes contain hyphens rather than underscores.
+    stems = _equivalent_template_stems(command, platform)
+    for file in sorted(directory.glob('*.textfsm')):
+        if re.sub(r'[^a-z0-9]', '', file.stem.lower()) in stems:
+            return file.resolve()
     return None
 
 
@@ -177,15 +232,29 @@ def textfsm_parse(command: str, data: str, platform: str,
     first_error: TextFSMResult | None = None
     for directory in search_dirs:
         source='custom_textfsm' if directory != project_templates else 'bundled_textfsm'
-        # Standard NTC cli-table index is supported when present in the user's directory.
-        if (directory / 'index').is_file() and parse_output is not None:
+        # Use the actual TextFSM CliTable index, including multi-template entries.
+        # Only allow a full-pattern match, never a broad prefix association.
+        index_templates = index_match(command, platform, directory)
+        if index_templates:
             try:
-                parsed = parse_output(platform=platform, command=command, data=data,
-                                      template_dir=str(directory))
-                if isinstance(parsed,list) and parsed and isinstance(parsed[0],dict):
-                    return TextFSMResult(rows=parsed,parser=source+'_index')
-            except Exception:
-                pass
+                from textfsm import clitable
+                cli = clitable.CliTable('index', str(directory))
+                cli.ParseCmd(data, {'Command': command, 'Platform': platform})
+                parsed = [dict(zip([str(h).lower() for h in cli.header], row)) for row in cli]
+                if parsed:
+                    return TextFSMResult(rows=parsed, parser=source+'_index',
+                                         template=index_templates)
+                result = TextFSMResult(parser=source+'_index', template=index_templates,
+                                       error='Index matched command but produced no records')
+                if first_error is None: first_error = result
+            except ImportError:
+                if first_error is None:
+                    first_error=TextFSMResult(parser=source+'_index',template=index_templates,
+                        error='textfsm not installed; run python -m pip install -r requirements.txt')
+            except Exception as exc:
+                if first_error is None:
+                    first_error=TextFSMResult(parser=source+'_index',template=index_templates,
+                        error=f'{type(exc).__name__}: {str(exc)[:180]}')
         template = find_custom_template(command,platform,directory)
         if template:
             result = _parse_template_file(template,data,source)
@@ -451,6 +520,152 @@ def etherchannel_parser(text: str, rows: list[dict] | None) -> dict:
     if not result:raise ValueError('EtherChannel data not parsed')
     return result
 
+
+def inventory_parser(text: str, rows: list[dict] | None) -> dict:
+    """Inventory identity (no uptime or mutable counters)."""
+    records=[]
+    if rows:
+        records=[r for r in rows if _first(r,'name','pid','sn')]
+    if not records:
+        for m in re.finditer(r'NAME:\s*"([^"]+)",\s*DESCR:\s*"([^"]+)"\s*\n'
+                             r'PID:\s*(.*?),\s*VID:\s*(.*?),\s*SN:\s*([^\n]*)',text,re.I):
+            records.append({'name':m.group(1),'descr':m.group(2),'pid':m.group(3),
+                            'vid':m.group(4),'sn':m.group(5)})
+    result={}
+    for r in records:
+        name=str(_first(r,'name','descr',default='')).strip()
+        if not name:continue
+        result[name]={'pid':str(_first(r,'pid',default='')).strip(),
+                      'vid':str(_first(r,'vid',default='')).strip(),
+                      'serial':str(_first(r,'sn','serial',default='')).strip()}
+    if not result:raise ValueError('No inventory records found')
+    return result
+
+
+def stack_parser(text: str, rows: list[dict] | None) -> dict:
+    result={}
+    if rows:
+        for r in rows:
+            sw=_first(r,'switch','switch_num')
+            if not sw:continue
+            role=str(_first(r,'role',default='')).strip()
+            state=str(_first(r,'state',default='')).strip()
+            if role and state:result[str(sw)]={'role':role.lower(),'state':state.lower()}
+    if not result:
+        for m in re.finditer(r'^\s*\*?\s*(\d+)\s+(Active|Standby|Member)\s+' 
+                             r'[0-9a-fA-F.]+\s+\d+\s+(?:\S+\s+)?(Ready|Provisioned|Removed|Other)\s*$',text,re.M|re.I):
+            result[m.group(1)]={'role':m.group(2).lower(),'state':m.group(3).lower()}
+    if not result:raise ValueError('No stack members found')
+    return result
+
+
+def interface_detail_parser(text: str, rows: list[dict] | None) -> dict:
+    result={}
+    if rows:
+        for r in rows:
+            iface=_first(r,'interface','port')
+            link=_first(r,'link_status','status')
+            proto=_first(r,'protocol_status','protocol')
+            if not iface or link is None:continue
+            entry={'link_status':str(link).strip().lower()}
+            if proto is not None:entry['protocol_status']=str(proto).strip().lower()
+            result[normalize_interface(iface)]=entry
+    if not result:
+        for m in re.finditer(r'^(\S+\d+(?:/\d+){0,3})\s+is\s+(.+?),\s+line\s+protocol\s+is\s+([^\n(]+)',text,re.M|re.I):
+            result[normalize_interface(m.group(1))]={'link_status':m.group(2).strip().lower(),
+                                                        'protocol_status':m.group(3).strip().lower()}
+    if not result:raise ValueError('No link/protocol states found in show interfaces')
+    return result
+
+
+def switchport_parser(text: str, rows: list[dict] | None) -> dict:
+    """Only stable switchport attributes; no dynamic traffic counters."""
+    result={}
+    entries=[]
+    if rows:
+        entries=rows
+    else:
+        for m in re.finditer(r'(?ms)^Name:\s*(\S+)\s*\n(.*?)(?=^Name:|\Z)',text):
+            entry={'interface':m.group(1)}
+            for key,regex in {'switchport':r'^Switchport:\s*(.+)$',
+                              'admin_mode':r'^Administrative Mode:\s*(.+)$',
+                              'mode':r'^Operational Mode:\s*(.+)$',
+                              'access_vlan':r'^Access Mode VLAN:\s*(\d+)',
+                              'voice_vlan':r'^Voice VLAN:\s*(\S+)',
+                              'native_vlan':r'^Trunking Native Mode VLAN:\s*(\d+)'}.items():
+                match=re.search(regex,m.group(2),re.M|re.I)
+                if match:entry[key]=match.group(1).strip()
+            entries.append(entry)
+    for r in entries:
+        iface=_first(r,'interface','name')
+        if not iface:continue
+        entry={}
+        for source, dest in [('switchport','switchport_enabled'),('admin_mode','admin_mode'),
+                             ('mode','oper_mode'),('access_vlan','access_vlan'),
+                             ('voice_vlan','voice_vlan'),('native_vlan','native_vlan')]:
+            v=_first(r,source)
+            if v is not None:entry[dest]=str(v).strip().lower()
+        if entry:result[normalize_interface(iface)]=entry
+    if not result:raise ValueError('No switchport attributes found')
+    return result
+
+
+def poe_parser(text: str, rows: list[dict] | None) -> dict:
+    """PoE operational status per interface; ignore watts consumed."""
+    result={}
+    if rows:
+        for r in rows:
+            iface=_first(r,'interface','port')
+            op=_first(r,'operational_status','oper','status')
+            if iface and op:result[normalize_interface(iface)]={'oper_status':str(op).lower()}
+    if not result:
+        for line in text.splitlines():
+            p=line.split()
+            if len(p)>=4 and IFACE.match(p[0]) and p[1].lower() in ('auto','on','off','never'):
+                result[normalize_interface(p[0])]={'oper_status':p[2].lower()}
+    if not result:raise ValueError('No PoE interface rows found')
+    return result
+
+
+def dai_parser(text: str, rows: list[dict] | None) -> dict:
+    result={}
+    if rows:
+        for r in rows:
+            iface=_first(r,'interface','port')
+            trust=_first(r,'trust_state','trusted')
+            if iface and trust:
+                entry={'trust_state':str(trust).lower()}
+                rate=_first(r,'rate_pps','rate_limit')
+                if rate is not None:entry['rate_pps']=str(rate).lower()
+                result[normalize_interface(iface)]=entry
+    if not result:
+        for line in text.splitlines():
+            m=re.match(r'^\s*((?:Gi|Te|Fa|GigabitEthernet|TenGigabitEthernet)\S+)\s+'
+                       r'(Trusted|Untrusted)\s+(\S+)',line,re.I)
+            if m:result[normalize_interface(m.group(1))]={'trust_state':m.group(2).lower(),
+                                                             'rate_pps':m.group(3).lower()}
+    if not result:raise ValueError('No DAI interface rows found')
+    return result
+
+
+def snooping_parser(text: str, rows: list[dict] | None) -> dict:
+    match=re.search(r'\b(?:Switch\s+)?DHCP\s+snooping\s+is\s+(enabled|disabled)',text,re.I)
+    if not match:
+        if rows:
+            match_value=_first(rows[0],'snooping_state')
+        else:match_value=None
+        if not match_value:raise ValueError('DHCP snooping global state unavailable')
+        enabled=str(match_value).lower()
+    else:enabled=match.group(1).lower()
+    result={'state':enabled}
+    trusts={}
+    for r in rows or []:
+        iface=_first(r,'interface','port')
+        state=_first(r,'trusted')
+        if iface and state:trusts[normalize_interface(iface)]=str(state).lower()
+    if trusts:result['trusted_ports']=trusts
+    return result
+
 # This registry is the only place where commands are mapped to our common data model.
 # A template for an unlisted command can still parse, but is NOT automatically trusted.
 NORMALIZERS = {
@@ -467,7 +682,19 @@ NORMALIZERS = {
  'show spanning-tree root':('layer2','stp_roots',stp_parser),
  'show interfaces trunk':('layer2','trunks',trunk_parser),
  'show etherchannel summary':('layer2','etherchannels',etherchannel_parser),
+ 'show inventory':('hardware','inventory',inventory_parser),
+ 'show switch':('hardware','stack',stack_parser),
+ 'show interfaces':('interfaces',None,interface_detail_parser),
+ 'show interfaces switchport':('interfaces',None,switchport_parser),
+ 'show power inline':('hardware','poe',poe_parser),
+ 'show ip arp inspection interfaces':('security','arp_inspection',dai_parser),
+ 'show ip dhcp snooping':('security','dhcp_snooping',snooping_parser),
 }
+
+
+# Normalizers for the previously unmapped TextFSM-supported commands.
+from .pending_normalizers import EXTRA_NORMALIZERS
+NORMALIZERS.update(EXTRA_NORMALIZERS)
 
 
 def _merge_dict(dest: dict, incoming: dict) -> None:
@@ -494,6 +721,7 @@ def parse_capture(path: str | Path, *, platform: str='cisco_ios', snapshot: str 
     selected_dir = resolve_templates_dir(templates_dir)
     model: dict[str,dict] = {}
     coverage: dict[str,dict] = {}
+    parsed_unmapped: dict[str, list[dict[str, Any]]] = {}
     for command, body in commands.items():
         if not body or CLI_ERROR.search(body):
             coverage[command]={'status':'COMMAND_ERROR' if CLI_ERROR.search(body) else 'EMPTY'}
@@ -509,6 +737,9 @@ def parse_capture(path: str | Path, *, platform: str='cisco_ios', snapshot: str 
                                  'records':len(rows) if rows is not None else 0}
             if result.template:coverage[command]['template']=result.template
             if result.error:coverage[command]['error']=result.error
+            if rows is not None:
+                parsed_unmapped[command] = rows[:5000]
+                if len(rows)>5000:coverage[command]['truncated_to']=5000
             continue
         section,key,parser=NORMALIZERS[command]
         try:
@@ -533,4 +764,5 @@ def parse_capture(path: str | Path, *, platform: str='cisco_ios', snapshot: str 
             if result.template:coverage[command]['template']=result.template
     return {'schema_version':1,'metadata':{'device':device,'source':str(path.name),'snapshot':snapshot,
            'platform':platform,'parsed_at':datetime.now().astimezone().isoformat(timespec='seconds'),
-           'command_count':len(commands),'templates_dir':str(selected_dir) if selected_dir else None},'model':model,'coverage':coverage}
+           'command_count':len(commands),'templates_dir':str(selected_dir) if selected_dir else None},
+           'model':model,'coverage':coverage,'parsed_unmapped':parsed_unmapped}

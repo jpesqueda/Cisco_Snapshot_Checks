@@ -1,6 +1,72 @@
-# Cisco Snapshot Checks — Versión 1.2.0 — Accordion + External TextFSM
+# Cisco Snapshot Checks — Versión 1.4.0 — 22 normalizadores adicionales + 33 TextFSM originales
 
 Comparador estructurado de capturas Cisco IOS-XE, basado en snapshots numerados. **Nunca cambia configuraciones de red**; SSH se utiliza únicamente para comandos `show`. Compatible con Windows y Python 3.10+.
+
+
+## Novedades V1.4.0 — 22 comandos previamente PARSED_UNMAPPED
+
+**No fue necesario crear otros 22 archivos `.textfsm`: estos comandos ya tenían
+plantillas candidatas en el ZIP que compartiste.** Se agregó el archivo
+`snapshotchecks/pending_normalizers.py` con 22 mapeos al modelo semántico;
+`parsing.py` los incorpora automáticamente en `NORMALIZERS`.
+
+- Capturas de prueba: **42/43** comandos `NORMALIZED` en ambos snapshots;
+  `show running-config` se conserva como evidencia RAW pero no se incluye en
+  el JSON para evitar copiar secretos de AAA, TACACS y SNMP.
+- Las 33 plantillas TextFSM e índice originales se incluyen sin modificar.
+- Datos dinámicos como uptime, paquetes/bytes, edades ARP, mensajes syslog,
+  señales ópticas y contadores BGP no se comparan literalmente.
+- Las tablas de MAC, ARP, DHCP Snooping Binding y Device Tracking se procesan
+  de forma selectiva; **los valores aprendidos dinámicamente se mantienen como
+  evidencia, pero se excluyen del diff predeterminado** para reducir falsos
+  positivos después de un reboot.
+- El `compare_rules.yaml` incluye campos nuevos seleccionados: fuentes NTP,
+  licencias, módulos, presencia de transceivers, STP, vecinos CDP/LLDP,
+  protocolos de routing, health de CPU/memoria y syslog remoto.
+- Para CPU se utiliza el criterio `>=85%` sostenido a cinco minutos;
+  para memoria `>=90%` de uso en Processor Pool. Son *umbrales iniciales de
+  prueba*, no sustituyen criterios específicos del entorno.
+- `NORMALIZED` garantiza que se construyó el modelo en las **salidas simuladas**;
+  no certifica la compatibilidad de cada template con dispositivos IOS-XE
+  reales. Las pruebas locales no ejecutaron NTC/TextFSM ni DeepDiff por
+  indisponibilidad de las dependencias en el entorno.
+- `INCOMPLETE` continúa siendo el estado global por el comando omitido
+  deliberadamente. No constituye una falla del upgrade.
+
+### Comandos incorporados en V1.4.0
+
+```text
+show clock                      show module
+show license summary            show interfaces counters
+show spanning-tree summary      show interfaces link
+show interfaces transceiver detail
+show mac address-table          show mac address-table count
+show ip arp                     show ip route summary
+show ip protocols               show cdp neighbors
+show cdp neighbors detail       show lldp neighbors
+show lldp neighbors detail      show authentication sessions
+show ip dhcp snooping binding   show device-tracking database
+show processes cpu sorted       show processes memory sorted
+show logging
+```
+
+### Prueba de integración Windows
+
+```powershell
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+python TemplateAudit.py -cf cmd.txt --capture examples/C9300-ACCESS-01_PRE_SIMULATED.txt -o Audit_PRE
+python SnapshotChecks.py import -f examples/C9300-ACCESS-01_PRE_SIMULATED.txt --snapshot 001 -o Upgrade_Test
+python SnapshotChecks.py import -f examples/C9300-ACCESS-01_POST_SIMULATED.txt --snapshot 002 -o Upgrade_Test
+python SnapshotChecks.py compare --from 001 --to 002 -o Upgrade_Test --expected-version 17.5.6 --tree
+```
+
+La auditoría para capturas reales debe revisarse línea por línea por comando,
+especialmente `PARSE_ERROR`, modelos vacíos y variaciones de IOS-XE/stack.
+Un parser válido no es un health check y una ausencia de diferencia no
+significa que toda la red esté saludable.
+
+---
 
 ## Instalación
 
@@ -224,3 +290,62 @@ Revisa `Upgrade_Test/Snapshots/001/JSON/C9300-ACCESS-01.json` bajo `coverage`.
 Por ejemplo, `show clock` podrá reportar `PARSED_UNMAPPED` aunque siga fuera de
 las comparaciones, mientras `show interfaces counters errors` podrá ser `NORMALIZED`
 si el template devuelve los campos esperados.
+
+
+## 10. Integración real del ZIP de templates (1.3.0)
+
+Esta distribución **incluye los 33 `.textfsm` y el `index` originales** de
+`ntc_templates_cisco_ios.zip`, sin alterar las expresiones originales. Se incorporó
+`TemplateAudit.py` para distinguir *template candidato* de *parseo ejecutado* y
+*campo normalizado/comparado*.
+
+```powershell
+python -m pip install -r requirements.txt
+python -c "import textfsm, ntc_templates, deepdiff; print('OK')"
+python TemplateAudit.py -cf cmd.txt -o Audit_Static
+python TemplateAudit.py -cf cmd.txt --capture examples/C9300-ACCESS-01_PRE_SIMULATED.txt -o Audit_PRE
+python SnapshotChecks.py import -f examples/C9300-ACCESS-01_PRE_SIMULATED.txt --snapshot 001 -o Upgrade_Test
+python SnapshotChecks.py import -f examples/C9300-ACCESS-01_POST_SIMULATED.txt --snapshot 002 -o Upgrade_Test
+python SnapshotChecks.py compare --from 001 --to 002 -o Upgrade_Test --expected-version 17.5.6
+```
+
+El auditor genera `template_coverage.csv` y `template_coverage.json`.
+En el chequeo **estático** de 43 comandos, 29 tienen un template candidato dentro
+de tu carpeta (algunos a través de `index` y otros por nombre); los 14 restantes
+requieren el parser NTC de la librería, un parser interno o se excluyen por seguridad.
+**Esto NO significa que los 29 hayan parseado correctamente en runtime.**
+
+Normalizadores nuevos (7 comandos): `show inventory`, `show switch`,
+`show interfaces`, `show interfaces switchport`, `show power inline`,
+`show ip arp inspection interfaces`, `show ip dhcp snooping`.
+Se comparan solo sus campos estables: identidad de inventario y stack, link/protocol,
+modo/VLAN de switchport, operación PoE, trusted/rate de DAI y estado DHCP snooping.
+Los contadores, consumo de PoE y mensajes de syslog NO se comparan por valor.
+
+Los registros de comandos parseados pero aún no normalizados se preservan bajo
+`parsed_unmapped` en el JSON de cada snapshot (máximo 5,000 por comando).
+**Estos JSON también contienen datos de producción** como MAC, IP y logs; mantén
+permisos restringidos y redacta capturas antes de compartirlas.
+
+Un comando sin filas TextFSM **no** se convierte en PASS; verás
+`PARSE_ERROR` o `PARSED_UNMAPPED` según el caso. La comparación global continúa
+como `INCOMPLETE` mientras haya comandos no evaluados. Consulta el CSV del
+auditor para decidir qué plantilla o normalizador ajustar.
+
+Se añadió una protección para impedir que el `index` use el parser genérico
+`show interfaces` al procesar `show interfaces counters errors`,
+`show interface status` o `show interfaces trunk`. También se admiten nombres
+con guiones como `cisco_ios_show_mac-address-table.textfsm`.
+
+### Pruebas y limitaciones
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
+Se pasaron 24 pruebas locales (incluida la compatibilidad de los TXT simulados)
+y se verificaron las 43 secciones de cada archivo. **No fue posible instalar las
+librerías `textfsm`, `ntc-templates` ni `deepdiff` en este entorno** (sin acceso a
+índice de paquetes); por ello no se ha podido confirmar el funcionamiento regex
+real de los 33 templates. En tu Windows se deben ejecutar las pruebas y el audit
+con las librerías instaladas antes de usar resultados para cambios en producción.

@@ -1,0 +1,20 @@
+Value Required LICENSE (\S+)
+Value ENTITLEMENT_TAG (.*?)
+Value COUNT (\d+)
+Value STATUS (\S(?:.*?\S)?)
+
+Start
+  ^\s*License\s+Usage:\s*$$ -> UsageHeader
+  ^\s*$$
+  ^.*$$
+
+UsageHeader
+  ^\s*License\s+Entitlement\s+[Tt]ag\s+Count\s+Status\s*$$ -> Usage
+  ^\s*$$
+  ^.*$$
+
+Usage
+  ^\s*-+\s*$$
+  ^\s*${LICENSE}\s+${ENTITLEMENT_TAG}\s{2,}${COUNT}\s+${STATUS}\s*$$ -> Record
+  ^\s*$$
+  ^.*$$

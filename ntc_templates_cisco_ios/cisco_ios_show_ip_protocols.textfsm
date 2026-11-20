@@ -1,0 +1,16 @@
+Value Required PROTOCOL (.+?)
+Value ROUTER_ID (\d+\.\d+\.\d+\.\d+)
+Value DISTANCE (\d+)
+Value MAX_PATHS (\d+)
+
+Start
+  ^Routing\s+Protocol\s+is\s+"${PROTOCOL}"\s*$$ -> Protocol
+  ^.*$$
+
+Protocol
+  ^Routing\s+Protocol\s+is\s+ -> Continue.Record
+  ^Routing\s+Protocol\s+is\s+"${PROTOCOL}"\s*$$
+  ^\s*Router\s+ID(?:\s+is)?\s+${ROUTER_ID}\s*$$
+  ^\s*Maximum\s+path:\s*${MAX_PATHS}\s*$$
+  ^\s*Distance:\s+\(default\s+is\s+${DISTANCE}\)\s*$$
+  ^.*$$

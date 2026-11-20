@@ -3,16 +3,24 @@
 # Add a field only after the corresponding normalizer produces it reliably.
 sections:
   system:
-    fields: [os_version]
+    fields: [os_version, time_source, clock_readable, licensing, logging]
   hardware:
-    fields: [environment]
+    fields: [environment, inventory, stack, poe, modules, transceivers, cpu_health, memory_health]
   interfaces:
-    fields: [oper_status, description, access_vlan, l3_status, protocol, ip_address, error_present]
+    fields: [oper_status, description, access_vlan, l3_status, protocol, ip_address, error_present, link_status, protocol_status, switchport_enabled, admin_mode, oper_mode, voice_vlan, native_vlan, counter_collection_present]
   vlans:
     fields: [name, status]
   routing:
-    fields: [bgp, routes]
+    fields: [bgp, routes, route_summary, protocols]
   layer2:
-    fields: [stp_roots, trunks, etherchannels]
+    fields: [stp_roots, trunks, etherchannels, stp_summary, mac_static, cdp, cdp_detail, lldp, lldp_detail]
   security:
-    fields: [port_security]
+    fields: [port_security, arp_inspection, dhcp_snooping, auth_sessions]
+
+# Intentionally NOT compared by default (retained in JSON as operational evidence):
+# interfaces.*.arp_entries_present (ARP ages/learned neighbors are dynamic)
+# layer2.mac_learning (MAC counts reset/relearn after restart)
+# security.snooping_bindings (DHCP bindings can relearn gradually)
+# security.device_tracking (endpoint tables are dynamic)
+# Log events, interface byte/packet counters, optic power/temperature, BGP
+# update counters, and time stamps are also excluded from the semantic model.

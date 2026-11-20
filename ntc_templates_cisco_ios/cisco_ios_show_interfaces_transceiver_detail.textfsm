@@ -1,0 +1,10 @@
+Value Required INTERFACE ([A-Za-z]+\d[\w/.:_-]*)
+Value TEMPERATURE (-?\d+(?:\.\d+)?|N/A|--)
+Value VOLTAGE (-?\d+(?:\.\d+)?|N/A|--)
+Value CURRENT (-?\d+(?:\.\d+)?|N/A|--)
+Value TX_POWER (-?\d+(?:\.\d+)?|N/A|--|-Inf)
+Value RX_POWER (-?\d+(?:\.\d+)?|N/A|--|-Inf)
+
+Start
+  ^\s*${INTERFACE}\s+${TEMPERATURE}\s+${VOLTAGE}\s+${CURRENT}\s+${TX_POWER}\s+${RX_POWER}(?:\s+.*)?$$ -> Record
+  ^.*$$

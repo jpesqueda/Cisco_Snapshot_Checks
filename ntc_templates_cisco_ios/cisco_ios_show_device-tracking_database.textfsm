@@ -1,0 +1,21 @@
+Value Required ADDRESS (\S+)
+Value MAC_ADDRESS (\S+)
+Value INTERFACE (\S+)
+Value VLAN (\S+)
+Value PRLVL (\S+)
+Value AGE (\S+)
+Value STATE (\S+)
+Value TIME_LEFT (\S+)
+
+Start
+  ^\s*Network\s+Layer\s+Address\s+Link\s+Layer\s+Address\s+Interface\s+vlan\s+prlvl\s+age\s+state\s+Time\s+left.*$$ -> MacFirst
+  ^\s*Network\s+Layer\s+Address\s+prlvl\s+age\s+state\s+Time\s+left\s+Link\s+Layer\s+Address\s+Interface\s+vlan.*$$ -> PriorityFirst
+  ^.*$$
+
+MacFirst
+  ^\s*${ADDRESS}\s+${MAC_ADDRESS}\s+${INTERFACE}\s+${VLAN}\s+${PRLVL}\s+${AGE}\s+${STATE}\s+${TIME_LEFT}(?:\s+.*)?$$ -> Record
+  ^.*$$
+
+PriorityFirst
+  ^\s*${ADDRESS}\s+${PRLVL}\s+${AGE}\s+${STATE}\s+${TIME_LEFT}\s+${MAC_ADDRESS}\s+${INTERFACE}\s+${VLAN}(?:\s+.*)?$$ -> Record
+  ^.*$$

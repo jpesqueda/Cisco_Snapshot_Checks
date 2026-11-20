@@ -1,0 +1,19 @@
+Value Filldown MODE (\S+)
+Value Filldown ROOT_BRIDGE_FOR (.+?)
+Value Required INSTANCE (\S+)
+Value BLOCKING (\d+)
+Value LISTENING (\d+)
+Value LEARNING (\d+)
+Value FORWARDING (\d+)
+Value STP_ACTIVE (\d+)
+
+Start
+  ^Switch\s+is\s+in\s+${MODE}\s+mode\s*$$
+  ^Root\s+bridge\s+for:\s*${ROOT_BRIDGE_FOR}\s*$$
+  ^\s*Name\s+Blocking\s+Listening\s+Learning\s+Forwarding\s+STP\s+Active\s*$$ -> Table
+  ^.*$$
+
+Table
+  ^\s*-+\s+-+\s+-+\s+-+\s+-+\s+-+\s*$$
+  ^\s*${INSTANCE}\s+${BLOCKING}\s+${LISTENING}\s+${LEARNING}\s+${FORWARDING}\s+${STP_ACTIVE}\s*$$ -> Record
+  ^.*$$

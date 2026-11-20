@@ -1,0 +1,24 @@
+Value Required INTERFACE (\S+)
+Value IN_OCTETS (\d+)
+Value IN_UCAST_PKTS (\d+)
+Value IN_MCAST_PKTS (\d+)
+Value IN_BCAST_PKTS (\d+)
+Value OUT_OCTETS (\d+)
+Value OUT_UCAST_PKTS (\d+)
+Value OUT_MCAST_PKTS (\d+)
+Value OUT_BCAST_PKTS (\d+)
+
+Start
+  ^\s*Port\s+InOctets(?:64)?\s+InUcastPkts\s+InMcastPkts\s+InBcastPkts\s*$$ -> Input
+  ^\s*Port\s+OutOctets(?:64)?\s+OutUcastPkts\s+OutMcastPkts\s+OutBcastPkts\s*$$ -> Output
+  ^.*$$
+
+Input
+  ^\s*Port\s+OutOctets(?:64)?\s+OutUcastPkts\s+OutMcastPkts\s+OutBcastPkts\s*$$ -> Output
+  ^\s*${INTERFACE}\s+${IN_OCTETS}\s+${IN_UCAST_PKTS}\s+${IN_MCAST_PKTS}\s+${IN_BCAST_PKTS}\s*$$ -> Record
+  ^.*$$
+
+Output
+  ^\s*Port\s+InOctets(?:64)?\s+InUcastPkts\s+InMcastPkts\s+InBcastPkts\s*$$ -> Input
+  ^\s*${INTERFACE}\s+${OUT_OCTETS}\s+${OUT_UCAST_PKTS}\s+${OUT_MCAST_PKTS}\s+${OUT_BCAST_PKTS}\s*$$ -> Record
+  ^.*$$

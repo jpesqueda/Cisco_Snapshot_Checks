@@ -1,0 +1,23 @@
+﻿command,normalized_fields,default_diff_policy
+show clock,time_source,compare
+show module,model/serial,compare
+show license summary,registration/authorization/licensing,compare
+show interfaces counters,interface present (NOT traffic counters),compare
+show spanning-tree summary,mode,compare
+show interfaces link,link_status (NOT dates),compare
+show interfaces transceiver detail,optic presence (NOT optical levels),compare
+show mac address-table,static MAC entries only,compare
+show mac address-table count,dynamic_learning_present,evidence_only
+show ip arp,ARP per-interface presence (NOT age/IP/MAC),evidence_only
+show ip route summary,prefix count per protocol,compare
+show ip protocols,routing protocol identities,compare
+show cdp neighbors,local port and remote neighbor,compare
+show cdp neighbors detail,neighbor and remote interface,compare
+show lldp neighbors,enabled / peer neighbors,compare
+show lldp neighbors detail,enabled / peer neighbors,compare
+show authentication sessions,session state if present,compare
+show ip dhcp snooping binding,has bindings (NOT leases),evidence_only
+show device-tracking database,has entries (NOT ages),evidence_only
+show processes cpu sorted,5min CPU >=85% threshold,compare
+show processes memory sorted,Processor Pool usage >=90% threshold,compare
+show logging,syslog enabled / remote targets,compare
