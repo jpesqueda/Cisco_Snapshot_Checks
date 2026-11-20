@@ -7,7 +7,7 @@ sections:
   hardware:
     fields: [environment, inventory, stack, poe, modules, transceivers, cpu_health, memory_health]
   interfaces:
-    fields: [oper_status, description, access_vlan, l3_status, protocol, ip_address, error_present, link_status, protocol_status, switchport_enabled, admin_mode, oper_mode, voice_vlan, native_vlan, counter_collection_present]
+    fields: [oper_status, description, access_vlan, l3_status, protocol, ip_address, error_present, link_status, link_table_state, protocol_status, switchport_enabled, admin_mode, oper_mode, voice_vlan, native_vlan, counter_collection_present]
   vlans:
     fields: [name, status]
   routing:

@@ -109,19 +109,50 @@ def spanning_tree_summary(text: str, rows: list[dict] | None) -> dict:
     mode=m.group(1).strip().lower()
     return {'mode':mode}
 
+def _duration_is_positive(value: str) -> bool | None:
+    if re.fullmatch(r'(?:\d+:\d{2}:\d{2}|(?:\d+[ywdhms])+)', value, re.I):
+        return any(int(part) for part in re.findall(r'\d+', value))
+    return None
+
+
 def interface_link(text: str, rows: list[dict] | None) -> dict:
-    states={}
-    for r in rows or []:
-        p=val(r,'port','interface')
-        state=val(r,'link_state','status','state')
-        if p and state and IFACE.match(str(p)):
-            states[iface(p)]={'link_status':str(state).lower()}
+    """Infer state only from unambiguous timer combinations; never diff durations."""
+    lines = text.expandtabs().splitlines()
+    states = {}
+    for i, line in enumerate(lines):
+        header = re.fullmatch(r'\s*Port\s+Name\s+(Down\s+Time)\s+(Up\s+Time)\s*', line, re.I)
+        if not header:
+            continue
+        for row in lines[i + 1:]:
+            if not row.strip() or re.fullmatch(r'[\s=-]+', row):
+                continue
+            port = row.split()[0]
+            if not IFACE.match(port):
+                raise ValueError('Unrecognized row in the link timer table')
+            # Read the fixed positions from the header, not the port description.
+            down = row[header.start(1):header.start(2)].strip()
+            up = row[header.start(2):].strip()
+            if _duration_is_positive(down) is False and _duration_is_positive(up) is True:
+                state = 'up'
+            elif _duration_is_positive(down) is True and not up:
+                state = 'down'
+            else:
+                raise ValueError(f'Ambiguous link timers for {iface(port)}')
+            states[iface(port)] = {'link_table_state': state}
+        break
+    else:
+        for line in lines:
+            m = re.match(r'^\s*(\S+)\s+(up|down|admin-down|disabled|notconnect)\s+', line, re.I)
+            if m and IFACE.match(m[1]):
+                states[iface(m[1])] = {'link_table_state': m[2].lower()}
+        if not states:
+            for r in rows or []:
+                port = val(r, 'port', 'interface')
+                state = str(val(r, 'link_state', 'status', 'state', default='')).lower()
+                if port and state in ('up', 'down', 'admin-down', 'disabled', 'notconnect'):
+                    states[iface(port)] = {'link_table_state': state}
     if not states:
-        for line in text.splitlines():
-            m=re.match(r'^\s*(\S+)\s+(up|down|admin-down|disabled|notconnect)\s+',line,re.I)
-            if m and IFACE.match(m.group(1)):
-                states[iface(m.group(1))]={'link_status':m.group(2).lower()}
-    if not states:raise ValueError('No link state rows found (dates alone are not link state)')
+        raise ValueError('No link state rows found (dates alone are not link state)')
     return states
 
 def transceivers(text: str, rows: list[dict] | None) -> dict:
@@ -260,7 +291,8 @@ def lldp_detail(text: str, rows: list[dict] | None) -> dict:
     return {'enabled':True,'neighbors':result}
 
 def auth_sessions(text: str, rows: list[dict] | None) -> dict:
-    if re.search(r'(?i)No authentication sessions match supplied criteria',text):return {'has_sessions':False}
+    if re.search(r'(?im)^[ \t]*No (?:authentication sessions match supplied criteria|sessions currently exist)\.?[ \t]*$', text):
+        return {'has_sessions': False}
     sessions={}
     for r in rows or []:
         p=val(r,'interface');status=val(r,'status')

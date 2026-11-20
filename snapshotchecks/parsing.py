@@ -475,11 +475,44 @@ def error_counters_parser(text: str, rows: list[dict] | None) -> dict:
 
 
 def env_parser(text: str, rows: list[dict] | None) -> dict:
-    result={}
-    for line in text.splitlines():
-        m=re.match(r'^(.+?)(?:\s+is\s+|\s+Status:\s*)(OK|Failed|Faulty|Not Present|Bad)\b',line,re.I)
-        if m:result[m.group(1).strip().lower()]=m.group(2).upper()
-    if not result:raise ValueError('No environment component statuses found')
+    """Compare environmental alarms and states, excluding readings and thresholds."""
+    lines = text.expandtabs().splitlines()
+    result = {}
+    for line in lines:
+        alarm = re.fullmatch(r'\s*Number of (Critical|Major|Minor) alarms:\s*(\d+)\s*', line, re.I)
+        if alarm:
+            result[f'alarm {alarm[1].lower()}'] = int(alarm[2])
+        legacy = re.match(r'^(.+?)(?:\s+is\s+|\s+Status:\s*)(OK|Failed|Faulty|Not Present|Bad)\b', line, re.I)
+        if legacy:
+            result[legacy[1].strip().lower()] = legacy[2].upper()
+
+    for i, line in enumerate(lines):
+        header = re.match(r'^\s*Sensor\s+(Location)\s+(State)\s+(Reading)\b', line, re.I)
+        if not header:
+            continue
+        sensor_count = 0
+        for row in lines[i + 1:]:
+            if not row.strip() or re.fullmatch(r'[\s=-]+', row):
+                if sensor_count and not row.strip():
+                    break
+                continue
+            location_at, state_at, reading_at = map(header.start, (1, 2, 3))
+            sensor = ' '.join(row[:location_at].split())
+            location = row[location_at:state_at].strip()
+            state = ' '.join(row[state_at:reading_at].split())
+            if (not sensor or not re.fullmatch(r'[\w/.-]+', location)
+                    or not re.fullmatch(r'[A-Za-z][A-Za-z /-]*', state)
+                    or not row[reading_at:].strip()):
+                raise ValueError('Unrecognized row in the environmental sensor table')
+            key = f'sensor {location.lower()} / {sensor.lower()}'
+            if key in result and result[key] != state.upper():
+                raise ValueError('Conflicting state for one environmental sensor')
+            result[key] = state.upper()
+            sensor_count += 1
+        if not sensor_count:
+            raise ValueError('Environmental sensor table has no readable rows')
+    if not result:
+        raise ValueError('No environment component statuses found')
     return result
 
 

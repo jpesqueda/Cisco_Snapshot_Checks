@@ -1,7 +1,7 @@
 # PROJECT CONTEXT — Cisco Snapshot Checks
 
 - **Project:** Cisco IOS-XE Snapshot Collector + Smart Diff Engine
-- **Current Version:** Prototype 1.4.0, version hidden in console banner
+- **Current Version:** Prototype 1.4.1, version hidden in console banner
 - **Environment:** Windows / PowerShell, Python 3.10+, Netmiko, Rich, NTC Templates/TextFSM, DeepDiff, PyYAML, Textual (TUI opcional)
 - **Previous Version:** Cisco_Pre_Post_Checks.py V2.1 (PRE/POST, optional -b)
 - **Architecture Change:** Numbered snapshots replace the mandatory PRE/POST binary. Legacy TXT capture import supported.
@@ -37,3 +37,8 @@
 - 42/43 commands normalize in both provided sample captures; show running-config stays SKIPPED_SENSITIVE.
 - Offline tests: 32 passed, plus 26 subtest cases. Actual external TextFSM/DeepDiff libraries could not be installed in the build environment.
 - Operational diff remains INCOMPLETE until running-config policy is decided or coverage policy is refined.
+
+## Update 1.4.1
+- Added environmental sensor and alarm tables, link-state inference from explicit timer columns, and one explicit no-authentication-sessions response.
+- Re-import both source TXT captures before comparing; this release does not change raw captures or coverage for other commands.
+- 38 offline tests passed with reconstructed fixtures and the existing simulations.

@@ -1,7 +1,18 @@
-# Cisco Snapshot Checks — Versión 1.4.0 — 22 normalizadores adicionales + 33 TextFSM originales
+# Cisco Snapshot Checks — Versión 1.4.1
 
 Comparador estructurado de capturas Cisco IOS-XE, basado en snapshots numerados. **Nunca cambia configuraciones de red**; SSH se utiliza únicamente para comandos `show`. Compatible con Windows y Python 3.10+.
 
+
+
+## V1.4.1 — Formatos adicionales de Catalyst
+
+- `show environment all`: lee la tabla Sensor / Location / State / Reading y los conteos de alarmas. Compara estados por sensor y ubicación, y cantidad de alarmas por severidad. No compara las lecturas ni los umbrales.
+- `show interfaces link`: interpreta la tabla Port / Name / Down Time / Up Time. Compara solo el estado de enlace inferido, en `link_table_state`, separado de `link_status` obtenido con `show interfaces`. Los tiempos ambiguos quedan como `PARSE_ERROR`; las duraciones no entran al diff.
+- `show authentication sessions`: interpreta `No sessions currently exist` como una salida válida sin sesiones, sin deducir el estado de configuración de 802.1X o MAB.
+
+Para aplicar los cambios a snapshots anteriores, vuelve a importar **ambos TXT originales** en una carpeta nueva con esta versión y compara los nuevos JSON. No hace falta recolectar otra vez. Los comandos vacíos, los no soportados y la exclusión de `show running-config` no cambian.
+
+Pruebas locales: 38, incluidas capturas sintéticas que reproducen los formatos compartidos. No se probó con los TXT completos del equipo.
 
 ## Novedades V1.4.0 — 22 comandos previamente PARSED_UNMAPPED
 
